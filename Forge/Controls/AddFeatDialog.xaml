@@ -1,0 +1,111 @@
+﻿<UserControl x:Class="Forge.Controls.AddFeatDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Forge.Controls"
+             xmlns:MD="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:FC="clr-namespace:Forge.Classes"
+             xmlns:addon="http://schemas.landmarkdevs.com/xaml"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Grid Margin="32" Width="600">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="FeatName" Grid.Column="0" MD:HintAssist.Hint="Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="18" Margin="0,16,8,0" MD:ValidationAssist.OnlyShowOnFocus="True">
+                <Binding Path="FeatNameTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+            <ComboBox x:Name="FeatType" Grid.Column="1" Style="{StaticResource MaterialDesignFloatingHintComboBox}" MD:HintAssist.Hint="Type" VerticalAlignment="Bottom" Cursor="Hand" Width="150">
+                <ComboBoxItem IsSelected="True">General</ComboBoxItem>
+                <ComboBoxItem>Animal Companion</ComboBoxItem>
+                <ComboBoxItem>Animal/Familiar</ComboBoxItem>
+                <ComboBoxItem>Achievement</ComboBoxItem>
+                <ComboBoxItem>Betrayal</ComboBoxItem>
+                <ComboBoxItem>Blood Hex</ComboBoxItem>
+                <ComboBoxItem>Caravan</ComboBoxItem>
+                <ComboBoxItem>Channeling</ComboBoxItem>
+                <ComboBoxItem>Combat</ComboBoxItem>
+                <ComboBoxItem>Critical</ComboBoxItem>
+                <ComboBoxItem>Damnation</ComboBoxItem>
+                <ComboBoxItem>Faction</ComboBoxItem>
+                <ComboBoxItem>Grit</ComboBoxItem>
+                <ComboBoxItem>Hero Point</ComboBoxItem>
+                <ComboBoxItem>Item Creation</ComboBoxItem>
+                <ComboBoxItem>Item Mastery</ComboBoxItem>
+                <ComboBoxItem>Local</ComboBoxItem>
+                <ComboBoxItem>Meditation</ComboBoxItem>
+                <ComboBoxItem>Metamagic</ComboBoxItem>
+                <ComboBoxItem>Monster</ComboBoxItem>
+                <ComboBoxItem>Mythic</ComboBoxItem>
+                <ComboBoxItem>Panache</ComboBoxItem>
+                <ComboBoxItem>Performance</ComboBoxItem>
+                <ComboBoxItem>Racial</ComboBoxItem>
+                <ComboBoxItem>Stare</ComboBoxItem>
+                <ComboBoxItem>Story</ComboBoxItem>
+                <ComboBoxItem>Style</ComboBoxItem>
+                <ComboBoxItem>Targeting</ComboBoxItem>
+                <ComboBoxItem>Teamwork</ComboBoxItem>
+                <ComboBoxItem>Weapon Mastery</ComboBoxItem>
+            </ComboBox>
+        </Grid>
+
+        <Grid Grid.Row="1" Margin="0,16,0,0">
+            <TextBox x:Name="FeatPrerequisites" MD:HintAssist.Hint="Prerequisites" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0,0,8,0" Height="60" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" HorizontalScrollBarVisibility="Disabled" TextWrapping="Wrap" AcceptsTab="True" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" />
+        </Grid>
+
+        <Grid Grid.Row="2" Margin="0,16,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <TextBox x:Name="FeatDescription" Grid.Column="0" MD:HintAssist.Hint="Description" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0,0,8,0" Height="125" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" HorizontalScrollBarVisibility="Disabled" TextWrapping="Wrap" AcceptsTab="True" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" MD:ValidationAssist.OnlyShowOnFocus="True">
+                <Binding Path="Description" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+            <TextBox x:Name="FeatBenefit" Grid.Column="1" MD:HintAssist.Hint="Benefits" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="8,0,0,0" Height="125" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" HorizontalScrollBarVisibility="Disabled" TextWrapping="Wrap" AcceptsTab="True" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" MD:ValidationAssist.OnlyShowOnFocus="True">
+                <Binding Path="Benefit" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+        </Grid>
+
+        <Grid Grid.Row="3" Margin="0,16,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <TextBox x:Name="FeatSpecial" Grid.Column="0" MD:HintAssist.Hint="Special" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0,0,8,0" Height="125" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" HorizontalScrollBarVisibility="Disabled" TextWrapping="Wrap" AcceptsTab="True" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" />
+            <TextBox x:Name="FeatNormal" Grid.Column="1" MD:HintAssist.Hint="Normal" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="8,0,0,0" Height="125" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" HorizontalScrollBarVisibility="Disabled" TextWrapping="Wrap" AcceptsTab="True" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" />
+        </Grid>
+
+        <Grid Grid.Row="4" Margin="0,16,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Button Content="Cancel" Grid.Column="0" Click="CancelDialog" />
+            <Button Content="Accept" Grid.Column="1" Margin="16,0,0,0" Click="AcceptDialog" />
+        </Grid>
+    </Grid>
+</UserControl>

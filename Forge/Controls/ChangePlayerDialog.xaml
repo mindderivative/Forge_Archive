@@ -1,0 +1,323 @@
+﻿<UserControl x:Class="Forge.Controls.ChangePlayerDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Forge.Controls"
+             xmlns:MD="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:FC="clr-namespace:Forge.Classes"
+             xmlns:st="http://schemas.spicytaco.io/"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Grid Margin="32" Width="500">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="8" Grid.Row="0">
+            <TextBox x:Name="PlayerName" MD:HintAssist.Hint="Player Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="18" MD:ValidationAssist.OnlyShowOnFocus="True" st:StackPanel.Fill="Fill">
+                <Binding Path="PlayerNameTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+            <TextBox x:Name="CharacterName" MD:HintAssist.Hint="Character Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="18" MD:ValidationAssist.OnlyShowOnFocus="True" st:StackPanel.Fill="Fill">
+                <Binding Path="CharacterNameTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+        </st:StackPanel>
+
+        <st:StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,16,0,0"  MarginBetweenChildren="8">
+            <ComboBox x:Name="Alignment" Style="{StaticResource MaterialDesignFloatingHintComboBox}" MD:HintAssist.Hint="Alignment" VerticalAlignment="Bottom" Cursor="Hand" Width="100" Margin="8,0,0,0">
+                <ComboBoxItem IsSelected="True">LG</ComboBoxItem>
+                <ComboBoxItem>LN</ComboBoxItem>
+                <ComboBoxItem>LE</ComboBoxItem>
+                <ComboBoxItem>NG</ComboBoxItem>
+                <ComboBoxItem>N</ComboBoxItem>
+                <ComboBoxItem>NE</ComboBoxItem>
+                <ComboBoxItem>CG</ComboBoxItem>
+                <ComboBoxItem>CN</ComboBoxItem>
+                <ComboBoxItem>CE</ComboBoxItem>
+            </ComboBox>
+            <TextBox x:Name="HitPoints" MD:HintAssist.Hint="HP" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MD:ValidationAssist.OnlyShowOnFocus="True" st:StackPanel.Fill="Fill">
+                <Binding Path="HitPointsTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+            <TextBox x:Name="ArmorClass" MD:HintAssist.Hint="AC" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MD:ValidationAssist.OnlyShowOnFocus="True" st:StackPanel.Fill="Fill">
+                <Binding Path="ArmorClassTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+            <TextBox x:Name="TouchAC" MD:HintAssist.Hint="Touch" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MD:ValidationAssist.OnlyShowOnFocus="True" st:StackPanel.Fill="Fill">
+                <Binding Path="TouchACTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+            <TextBox x:Name="FlatFootedAC" MD:HintAssist.Hint="Flat-footed" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MD:ValidationAssist.OnlyShowOnFocus="True" st:StackPanel.Fill="Fill">
+                <Binding Path="FlatFootedACTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+        </st:StackPanel>
+
+        <st:StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0,16,0,0"  MarginBetweenChildren="8">
+            <TextBox x:Name="CMD" MD:HintAssist.Hint="CMD" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MD:ValidationAssist.OnlyShowOnFocus="True" st:StackPanel.Fill="Fill">
+                <Binding Path="CMDTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+            <TextBox x:Name="Fort" MD:HintAssist.Hint="Fort" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MD:ValidationAssist.OnlyShowOnFocus="True" st:StackPanel.Fill="Fill">
+                <Binding Path="FortTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+            <TextBox x:Name="Ref" MD:HintAssist.Hint="Ref" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MD:ValidationAssist.OnlyShowOnFocus="True" st:StackPanel.Fill="Fill">
+                <Binding Path="RefTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+            <TextBox x:Name="Will" MD:HintAssist.Hint="Will" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MD:ValidationAssist.OnlyShowOnFocus="True" st:StackPanel.Fill="Fill">
+                <Binding Path="WillTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+        </st:StackPanel>
+
+        <st:StackPanel Orientation="Horizontal" Grid.Row="3" Margin="0,16,0,0"  MarginBetweenChildren="8">
+            <TextBox x:Name="Str" MD:HintAssist.Hint="Str" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MD:ValidationAssist.OnlyShowOnFocus="True" st:StackPanel.Fill="Fill">
+                <Binding Path="StrTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+            <TextBox x:Name="Dex" MD:HintAssist.Hint="Dex" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MD:ValidationAssist.OnlyShowOnFocus="True" st:StackPanel.Fill="Fill">
+                <Binding Path="DexTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+            <TextBox x:Name="Con" MD:HintAssist.Hint="Con" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MD:ValidationAssist.OnlyShowOnFocus="True" st:StackPanel.Fill="Fill">
+                <Binding Path="ConTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+            <TextBox x:Name="Int" MD:HintAssist.Hint="Int" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MD:ValidationAssist.OnlyShowOnFocus="True" st:StackPanel.Fill="Fill">
+                <Binding Path="IntTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+            <TextBox x:Name="Wis" MD:HintAssist.Hint="Wis" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MD:ValidationAssist.OnlyShowOnFocus="True" st:StackPanel.Fill="Fill">
+                <Binding Path="WisTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+            <TextBox x:Name="Cha" MD:HintAssist.Hint="Cha" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MD:ValidationAssist.OnlyShowOnFocus="True" st:StackPanel.Fill="Fill">
+                <Binding Path="ChaTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+        </st:StackPanel>
+
+        <Expander Grid.Row="4" Header="Player Skills" Margin="0,16,0,0" Background="{x:Null}" BorderBrush="{x:Null}">
+            <Grid Margin="8,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0">
+                    <Border.BorderBrush>
+                        <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                            <GradientStop Color="#FFB0BEC5" Offset="0"/>
+                            <GradientStop Color="#05B0BEC5" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.BorderBrush>
+                    <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="8" Margin="0,0,0,16">
+                        <ComboBox x:Name="SkillList" ItemsSource="{Binding SkillCollection}" SelectedIndex="0" Style="{StaticResource MaterialDesignFloatingHintComboBox}" DisplayMemberPath="Name" SelectedValue="{Binding ID}" SelectedValuePath="ID" MD:HintAssist.Hint="Skills" VerticalAlignment="Bottom" Cursor="Hand" st:StackPanel.Fill="Fill"/>
+                        <TextBox x:Name="SkillRank" MD:HintAssist.Hint="Rank" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MD:ValidationAssist.OnlyShowOnFocus="True" Width="50">
+                            <Binding Path="SkillRankTxt" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox>
+                        <Button Grid.Row="0" Style="{DynamicResource MaterialDesignToolButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="#FF608B60" ToolTip="Add Skill" Click="AddPlayerSkill">
+                            <MD:PackIcon Kind="PlusCircleOutline" Width="24" Height="24" />
+                        </Button>
+                    </st:StackPanel>
+                </Border>
+
+                <ListBox ItemsSource="{Binding PlayerSkillCollection}" SelectedValue="{Binding ID}" Grid.Row="1" Height="120" Margin="0">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel Cursor="Hand" />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="8" Width="452">
+                                <TextBox MD:HintAssist.Hint="Skill" Text="{Binding SkillName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" st:StackPanel.Fill="Fill"/>
+                                <TextBox MD:HintAssist.Hint="Rank" Text="{Binding SkillRank}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="50" TextChanged="PlayerRankTextChanged"/>
+                                <Button Style="{DynamicResource MaterialDesignToolButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="#FF608B60" ToolTip="Update Skill" Tag="{Binding ID}" Click="UpdatePlayerSkill">
+                                    <MD:PackIcon Kind="Upload" Width="24" Height="24" />
+                                </Button>
+                                <Button Style="{DynamicResource MaterialDesignToolButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="#FFBB6565" ToolTip="Delete Skill" Click="DeletePlayerSkill" Tag="{Binding ID}">
+                                    <MD:PackIcon Kind="Delete" Width="24" Height="24" />
+                                </Button>
+                            </st:StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </Expander>
+
+        <Expander Grid.Row="5" Header="Player Factions" Margin="0,16,0,0" Background="{x:Null}" BorderBrush="{x:Null}">
+            <Grid Margin="8,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0">
+                    <Border.BorderBrush>
+                        <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                            <GradientStop Color="#FFB0BEC5" Offset="0"/>
+                            <GradientStop Color="#05B0BEC5" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.BorderBrush>
+                    <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="8" Margin="0,0,0,16">
+                        <ComboBox x:Name="FactionList" ItemsSource="{Binding FactionCollection}" SelectedIndex="0" Style="{StaticResource MaterialDesignFloatingHintComboBox}" DisplayMemberPath="Name" SelectedValue="{Binding ID}" SelectedValuePath="ID" MD:HintAssist.Hint="Factions" VerticalAlignment="Bottom" Cursor="Hand" st:StackPanel.Fill="Fill"/>
+                        <ComboBox x:Name="FactionStatus" Style="{StaticResource MaterialDesignFloatingHintComboBox}" MD:HintAssist.Hint="Faction Status" VerticalAlignment="Bottom" Cursor="Hand" st:StackPanel.Fill="Fill">
+                            <ComboBoxItem>Hostile</ComboBoxItem>
+                            <ComboBoxItem>Unfriendly</ComboBoxItem>
+                            <ComboBoxItem IsSelected="True">Neutral</ComboBoxItem>
+                            <ComboBoxItem>Friendly</ComboBoxItem>
+                            <ComboBoxItem>Honored</ComboBoxItem>
+                            <ComboBoxItem>Respected</ComboBoxItem>
+                            <ComboBoxItem>Revered</ComboBoxItem>
+                        </ComboBox>
+                        <Button Grid.Row="0" Style="{DynamicResource MaterialDesignToolButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="#FF608B60" ToolTip="Add Faction" Click="AddPlayerFaction">
+                            <MD:PackIcon Kind="PlusCircleOutline" Width="24" Height="24" />
+                        </Button>
+                    </st:StackPanel>
+                </Border>
+
+                <ListBox ItemsSource="{Binding PlayerFactionCollection}" SelectedValue="{Binding ID}" Grid.Row="1" Height="120" Margin="0">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel Cursor="Hand" />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="8" Width="452">
+                                <TextBox MD:HintAssist.Hint="Faction" Text="{Binding FactionName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" st:StackPanel.Fill="Fill"/>
+                                <ComboBox SelectedIndex="{Binding FactionStatus, Converter={StaticResource FactionToSelectedIndexConverter}}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" MD:HintAssist.Hint="Faction Status" VerticalAlignment="Bottom" Cursor="Hand" SelectionChanged="PlayerFactionSelectionChanged">
+                                    <ComboBoxItem>Hostile</ComboBoxItem>
+                                    <ComboBoxItem>Unfriendly</ComboBoxItem>
+                                    <ComboBoxItem>Neutral</ComboBoxItem>
+                                    <ComboBoxItem>Friendly</ComboBoxItem>
+                                    <ComboBoxItem>Honored</ComboBoxItem>
+                                    <ComboBoxItem>Respected</ComboBoxItem>
+                                    <ComboBoxItem>Revered</ComboBoxItem>
+                                </ComboBox>
+                                <Button Style="{DynamicResource MaterialDesignToolButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="#FF608B60" ToolTip="Update Faction" Tag="{Binding ID}" Click="UpdatePlayerFaction">
+                                    <MD:PackIcon Kind="Upload" Width="24" Height="24" />
+                                </Button>
+                                <Button Style="{DynamicResource MaterialDesignToolButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="#FFBB6565" ToolTip="Delete Faction" Click="DeletePlayerFaction" Tag="{Binding ID}">
+                                    <MD:PackIcon Kind="Delete" Width="24" Height="24" />
+                                </Button>
+                            </st:StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+            </Grid>
+        </Expander>
+        
+        <Expander Grid.Row="6" Header="Player Languages" Margin="0,16,0,0" Background="{x:Null}" BorderBrush="{x:Null}">
+            <Grid Margin="8,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0">
+                    <Border.BorderBrush>
+                        <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                            <GradientStop Color="#FFB0BEC5" Offset="0"/>
+                            <GradientStop Color="#05B0BEC5" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.BorderBrush>
+                    <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="8" Margin="0,0,0,16">
+                        <ComboBox x:Name="LanguageList" ItemsSource="{Binding LanguageCollection}" SelectedIndex="0" Style="{StaticResource MaterialDesignFloatingHintComboBox}" DisplayMemberPath="Name" SelectedValue="{Binding ID}" SelectedValuePath="ID" MD:HintAssist.Hint="Languages" VerticalAlignment="Bottom" Cursor="Hand" st:StackPanel.Fill="Fill"/>
+                        <Button Grid.Row="0" Style="{DynamicResource MaterialDesignToolButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="#FF608B60" ToolTip="Add Language" Click="AddPlayerLanguage">
+                            <MD:PackIcon Kind="PlusCircleOutline" Width="24" Height="24" />
+                        </Button>
+                    </st:StackPanel>
+                </Border>
+
+                <ListBox ItemsSource="{Binding PlayerLanguageCollection}" SelectedValue="{Binding ID}" Grid.Row="1" Height="120" Margin="0">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel Cursor="Hand" />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="8" Width="452">
+                                <TextBox MD:HintAssist.Hint="Language" Text="{Binding LanguageName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" st:StackPanel.Fill="Fill"/>
+                                <Button Style="{DynamicResource MaterialDesignToolButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="#FFBB6565" ToolTip="Delete Language" Click="DeletePlayerLanguage" Tag="{Binding ID}">
+                                    <MD:PackIcon Kind="Delete" Width="24" Height="24" />
+                                </Button>
+                            </st:StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+            </Grid>
+        </Expander>
+
+
+        <st:StackPanel Orientation="Horizontal" Grid.Row="7" Margin="0,16,0,0" MarginBetweenChildren="16">
+            <Button Content="Cancel" Click="CancelDialog" st:StackPanel.Fill="Fill" />
+            <Button Content="Accept" Click="AcceptDialog" st:StackPanel.Fill="Fill" />
+        </st:StackPanel>
+    </Grid>
+</UserControl>

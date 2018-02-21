@@ -1,0 +1,33 @@
+﻿<Application x:Class="Forge.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Forge"
+             xmlns:converters="clr-namespace:Forge.Converters"
+             xmlns:classes ="clr-namespace:Forge.Classes">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <local:MainBootstrapper x:Key="bootstrapper" />
+                    <converters:PrefixValueConverter x:Key="PrefixValueConverter" />
+                    <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+                    <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+                    <converters:StringNullOrEmptyToVisibilityConverter x:Key="StringNullOrEmptyToVisibilityConverter" />
+                    <converters:StringNullOrEmptyToVisibilityMultiConverter x:Key="StringNullOrEmptyToVisibilityMultiConverter" />
+                    <converters:FactionToSelectedIndexConverter x:Key="FactionToSelectedIndexConverter" />
+                </ResourceDictionary>
+
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.bluegrey.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.cyan.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ComboBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Slider.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Forge;component/Templates/WindowBase.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Forge;component/Templates/General.xaml" />
+
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

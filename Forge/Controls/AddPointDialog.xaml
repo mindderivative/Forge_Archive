@@ -1,0 +1,550 @@
+﻿<UserControl x:Class="Forge.Controls.AddPointDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Forge.Controls"
+             xmlns:MD="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:FC="clr-namespace:Forge.Classes"
+             xmlns:addon="http://schemas.landmarkdevs.com/xaml"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Grid Margin="32" Width="400">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBox x:Name="PushPinName" Grid.Column="0" MD:HintAssist.Hint="Point Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="18" Margin="0,16,0,0" MD:ValidationAssist.OnlyShowOnFocus="True">
+                <Binding Path="NameTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+
+            <MD:PopupBox Grid.Column="1" StaysOpen="True" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="16,16,16,0" Cursor="Hand">
+                <MD:PopupBox.ToggleContent>
+                    <MD:PackIcon x:Name="PopupBoxIcon" Kind="CheckboxBlankCircle">
+                        <MD:PackIcon.Effect>
+                            <DropShadowEffect Direction="270" ShadowDepth="2" Opacity="0.5"/>
+                        </MD:PackIcon.Effect>
+                    </MD:PackIcon>
+                </MD:PopupBox.ToggleContent>
+
+                <Grid Margin="16" Width="350" Height="350">
+                    <Grid Width="325" Height="325">
+                        <FC:RadialPanel>
+                            <!--MISC-->
+                            <RadioButton Background="#FFF44336" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FFE53935" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            
+                            <!--RED-->
+                            <RadioButton Background="#FFFF8A80" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FFFF5252" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FFFF1744" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FFD50000" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            
+                            <!--PINK-->
+                            <RadioButton Background="#FFFF80AB" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FFFF4081" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FFF50057" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FFC51162" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+
+                            <!--PURPLE-->
+                            <RadioButton Background="#FFEA80FC" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FFE040FB" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FFD500F9" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FFAA00FF" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            
+                            <!--DEEP PURPLE-->
+                            <RadioButton Background="#FFB388FF" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FF7C4DFF" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FF651FFF" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FF6200EA" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            
+                            <!--INDIGO-->
+                            <RadioButton Background="#FF8C9EFF" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FF536DFE" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FF3D5AFE" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FF304FFE" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            
+                            <!--BLUE-->
+                            <RadioButton Background="#FF82B1FF" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FF448AFF" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FF2979FF" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FF2962FF" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            
+                            <!--LIGHT BLUE-->
+                            <RadioButton Background="#FF80D8FF" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FF40C4FF" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FF00B0FF" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FF0091EA" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                        </FC:RadialPanel>
+                    </Grid>
+
+                    <Grid Width="255" Height="255">
+                        <FC:RadialPanel>
+                            <!--CYAN-->
+                            <RadioButton Background="#FF84FFFF" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" Foreground="#DD000000" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FF18FFFF" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" Foreground="#DD000000" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FF00E5FF" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" Foreground="#DD000000" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FF00B8D4" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" Foreground="#DD000000" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            
+                            <!--TEAL-->
+                            <RadioButton Background="#FFA7FFEB" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" Foreground="#DD000000" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FF64FFDA" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" Foreground="#DD000000" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FF1DE9B6" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" Foreground="#DD000000" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FF00BFA5" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" Foreground="#DD000000" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            
+                            <!--GREEN-->
+                            <RadioButton Background="#FFB9F6CA" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" Foreground="#DD000000" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FF69F0AE" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" Foreground="#DD000000" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FF00E676" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" Foreground="#DD000000" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FF00C853" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" Foreground="#DD000000" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            
+                            <!--LIGHT GREEN-->
+                            <RadioButton Background="#FFCCFF90" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" Foreground="#DD000000" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FFB2FF59" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" Foreground="#DD000000" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FF76FF03" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" Foreground="#DD000000" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FF64DD17" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" Foreground="#DD000000" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            
+                            <!--LIME-->
+                            <RadioButton Background="#FFF4FF81" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" Foreground="#DD000000" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FFEEFF41" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" Foreground="#DD000000" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FFC6FF00" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" Foreground="#DD000000" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FFAEEA00" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" Foreground="#DD000000" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            
+                            <!--YELLOW-->
+                            <RadioButton Background="#FFFFFF8D" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" Foreground="#DD000000" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FFFFFF00" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" Foreground="#DD000000" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FFFFEA00" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" Foreground="#DD000000" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FFFFD600" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" Foreground="#DD000000" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                        </FC:RadialPanel>
+                    </Grid>
+
+                    <Grid Width="185" Height="185">
+                        <FC:RadialPanel>
+                            <!--AMBER-->
+                            <RadioButton Background="#FFFFE57F" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" Foreground="#DD000000" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FFFFD740" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" Foreground="#DD000000" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FFFFC400" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" Foreground="#DD000000" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FFFFAB00" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" Foreground="#DD000000" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            
+                            <!--ORANGE-->
+                            <RadioButton Background="#FFFFD180" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" Foreground="#DD000000" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FFFFAB40" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" Foreground="#DD000000" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FFFF9100" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" Foreground="#DD000000" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FFFF6D00" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" Foreground="#DD000000" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            
+                            <!--DEEP ORANGE-->
+                            <RadioButton Background="#FFFF9E80" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FFFF6E40" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FFFF3D00" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FFDD2C00" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            
+                            <!--BROWN-->
+                            <RadioButton Background="#FFBCAAA4" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FF8D6E63" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FF6D4C41" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FF4E342E" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                        </FC:RadialPanel>
+                    </Grid>
+
+                    <Grid Width="115" Height="115">
+                        <FC:RadialPanel>
+                            <!--GREY-->
+                            <RadioButton Background="#FFEEEEEE" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" Foreground="#DD000000" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FFBDBDBD" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" Foreground="#DD000000" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FF757575" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FF424242" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            
+                            <!--BLUE GREY-->
+                            <RadioButton Background="#FFB0BEC5" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FF78909C" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FF546E7A" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FF37474F" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            
+                            <!--BLACK/WHITE-->
+                            <RadioButton Background="#FF000000" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                            <RadioButton Background="#FFFFFFFF" Style="{DynamicResource MaterialDesignActionToggleButton}" Width="24" Height="24" GroupName="ColorWheelGroup" Checked="ColorSelected" Foreground="#DD000000" >
+                                <RadioButton.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+                                </RadioButton.Effect>
+                            </RadioButton>
+                        </FC:RadialPanel>
+                    </Grid>
+
+                    <Grid Width="45" Height="45">
+                        <Button x:Name="PushPinColorWheelCenterButton" Background="#FF000000" Style="{DynamicResource MaterialDesignFloatingActionButton}" Width="35" Height="35" BorderBrush="{x:Null}" ToolTip="Selected Color" />
+                    </Grid>
+                </Grid>
+            </MD:PopupBox>
+
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="MapLocation" Grid.Column="0" MD:HintAssist.Hint="Point Map" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="18" Margin="0,16,0,0" IsReadOnly="True" />
+            <Button Content="Browse" Grid.Column="1" VerticalAlignment="Bottom" Margin="16,0,0,0" Click="BrowseMapAsync" />
+        </Grid>
+        <Grid x:Name="MapInfo" Grid.Row="2" Margin="0,16,0,0" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="MapName" Grid.Column="0" MD:HintAssist.Hint="Map Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="18" Margin="0,16,0,0" />
+                <CheckBox x:Name="IsBaseMapCheckbox" Grid.Column="1" Content="World Map?" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="8,0,0,8" />
+            </Grid>
+
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="MapWidth" Grid.Column="0" MD:HintAssist.Hint="Map Width" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="18" Margin="0,16,8,0" IsReadOnly="True" />
+                <TextBox x:Name="MapHeight" Grid.Column="1" MD:HintAssist.Hint="Map Height" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="18" Margin="8,16,0,0" IsReadOnly="True" />
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="3" Margin="0,16,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Button Content="Cancel" Grid.Column="0" Click="CancelDialog" />
+            <Button Content="Accept" Grid.Column="1" Margin="16,0,0,0" Click="AcceptDialog" />
+        </Grid>
+    </Grid>
+</UserControl>

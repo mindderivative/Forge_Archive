@@ -1,0 +1,491 @@
+﻿<UserControl x:Class="Forge.Views.BestiaryView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Forge.Views"
+             xmlns:MD="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:FC="clr-namespace:Forge.Classes"
+             xmlns:st="http://schemas.spicytaco.io/"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" Visibility="{Binding IsBestiarySelected, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="3" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="{Binding Name}" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="24" Margin="8,0,0,8" FontWeight="Bold" />
+
+            <Grid Grid.Row="1" >
+                <Grid.Background>
+                    <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                        <GradientStop Color="#FFB0BEC5" Offset="0"/>
+                        <GradientStop Color="#05B0BEC5" Offset="1"/>
+                    </LinearGradientBrush>
+                </Grid.Background>
+            </Grid>
+
+            <ScrollViewer Grid.Row="2" Margin="8" VerticalScrollBarVisibility="Auto">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <!--Introduction-->
+                        <RowDefinition Height="Auto" />
+                        <!--Statblock-->
+                        <RowDefinition Height="Auto" />
+                        <!--Description-->
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Margin="8" Visibility="{Binding ElementName=XPText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <st:StackPanel Orientation="Horizontal" Grid.Row="0" Margin="8" Visibility="{Binding ElementName=XPText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}">
+                            <TextBlock Name="XPText" Text="{Binding XP, StringFormat='XP {0:0,0}'}" TextWrapping="Wrap" />
+                        </st:StackPanel>
+
+                        <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="8" Grid.Row="1" Margin="8">
+                            <st:StackPanel.Visibility>
+                                <MultiBinding Converter="{StaticResource StringNullOrEmptyToVisibilityMultiConverter}">
+                                    <Binding ElementName="RaceText" Path="Text" />
+                                    <Binding ElementName="Class1Text" Path="Text" />
+                                    <Binding ElementName="Class2Text" Path="Text" />
+                                </MultiBinding>
+                            </st:StackPanel.Visibility>
+                            <TextBlock Text="Race" />
+                            <TextBlock Name="RaceText" Text="{Binding Race}" TextWrapping="Wrap"/>
+                            <TextBlock Text="Class" />
+                            <TextBlock Name="Class1Text" Text="{Binding Class1}" TextWrapping="Wrap" Visibility="{Binding ElementName=Class1Text, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}"/>
+                            <TextBlock Text="{Binding Class1Level}" TextWrapping="Wrap" Visibility="{Binding ElementName=Class1Text, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}"/>
+                            <TextBlock Name="Class2Text" Text="{Binding Class2}" TextWrapping="Wrap" Visibility="{Binding ElementName=Class2Text, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}"/>
+                            <TextBlock Text="{Binding Class2Level, StringFormat='\, {0}'}" TextWrapping="Wrap" Visibility="{Binding ElementName=Class2Text, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" st:StackPanel.Fill="Auto"/>
+
+                        </st:StackPanel>
+
+                        <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="8" Grid.Row="2" Margin="8">
+                            <st:StackPanel.Visibility>
+                                <MultiBinding Converter="{StaticResource StringNullOrEmptyToVisibilityMultiConverter}">
+                                    <Binding ElementName="AlignmentText" Path="Text" />
+                                    <Binding ElementName="SizeText" Path="Text" />
+                                    <Binding ElementName="TypeText" Path="Text" />
+                                </MultiBinding>
+                            </st:StackPanel.Visibility>
+
+                            <TextBlock Name="AlignmentText" Text="{Binding Alignment}" TextWrapping="Wrap" Visibility="{Binding ElementName=AlignmentText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}"/>
+                            <TextBlock Name="SizeText" Text="{Binding Size}" TextWrapping="Wrap" Visibility="{Binding ElementName=SizeText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}"/>
+                            <TextBlock Name="TypeText" Text="{Binding Type}" TextWrapping="Wrap" Visibility="{Binding ElementName=TypeText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}"/>
+                            <TextBlock Text=" (" Visibility="{Binding ElementName=SubTypeText1, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" Margin="0,0,-8,0"/>
+                            <TextBlock Name="SubTypeText1" Text="{Binding SubType1}" TextWrapping="Wrap" Visibility="{Binding ElementName=SubTypeText1, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" st:StackPanel.Fill="Auto"/>
+                            <TextBlock Text="," Visibility="{Binding ElementName=SubTypeText2, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" Margin="-8,0,0,0" />
+                            <TextBlock Name="SubTypeText2" Text="{Binding SubType2}" TextWrapping="Wrap" Visibility="{Binding ElementName=SubTypeText2, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" st:StackPanel.Fill="Auto"/>
+                            <TextBlock Text="," Visibility="{Binding ElementName=SubTypeText3, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" Margin="-8,0,0,0" />
+                            <TextBlock Name="SubTypeText3" Text="{Binding SubType3}" TextWrapping="Wrap" Visibility="{Binding ElementName=SubTypeText3, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" st:StackPanel.Fill="Auto"/>
+                            <TextBlock Text="," Visibility="{Binding ElementName=SubTypeText4, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" Margin="-8,0,0,0" />
+                            <TextBlock Name="SubTypeText4" Text="{Binding SubType4}" TextWrapping="Wrap" Visibility="{Binding ElementName=SubTypeText4, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" st:StackPanel.Fill="Auto"/>
+                            <TextBlock Text="," Visibility="{Binding ElementName=SubTypeText5, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" Margin="-8,0,0,0" />
+                            <TextBlock Name="SubTypeText5" Text="{Binding SubType5}" TextWrapping="Wrap" Visibility="{Binding ElementName=SubTypeText5, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" st:StackPanel.Fill="Auto"/>
+                            <TextBlock Text="," Visibility="{Binding ElementName=SubTypeText6, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" Margin="-8,0,0,0" />
+                            <TextBlock Name="SubTypeText6" Text="{Binding SubType6}" TextWrapping="Wrap" Visibility="{Binding ElementName=SubTypeText6, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" st:StackPanel.Fill="Auto"/>
+                            <TextBlock Text=")" Visibility="{Binding ElementName=SubTypeText1, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" Margin="-8,0,0,0"/>
+                        </st:StackPanel>
+                    </Grid>
+
+                    <Grid Grid.Row="1" Margin="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.Visibility>
+                            <MultiBinding Converter="{StaticResource StringNullOrEmptyToVisibilityMultiConverter}">
+                                <Binding ElementName="ACText" Path="Text" />
+                                <Binding ElementName="ACTouchText" Path="Text" />
+                                <Binding ElementName="ACFlatFootedText" Path="Text" />
+                                <Binding ElementName="HPText" Path="Text" />
+                                <Binding ElementName="HDText" Path="Text" />
+                                <Binding ElementName="FortText" Path="Text" />
+                                <Binding ElementName="RefText" Path="Text" />
+                                <Binding ElementName="WillText" Path="Text" />
+                                <Binding ElementName="SpeedText" Path="Text" />
+                                <Binding ElementName="MeleeText" Path="Text" />
+                                <Binding ElementName="RangedText" Path="Text" />
+                                <Binding ElementName="ReachText" Path="Text" />
+                                <Binding ElementName="StrText" Path="Text" />
+                                <Binding ElementName="DexText" Path="Text" />
+                                <Binding ElementName="ConText" Path="Text" />
+                                <Binding ElementName="IntText" Path="Text" />
+                                <Binding ElementName="WisText" Path="Text" />
+                                <Binding ElementName="ChaText" Path="Text" />
+                                <Binding ElementName="FeatsText" Path="Text" />
+                                <Binding ElementName="SkillsText" Path="Text" />
+                                <Binding ElementName="RacialModsText" Path="Text" />
+                                <Binding ElementName="LanguagesText" Path="Text" />
+                                <Binding ElementName="SQText" Path="Text" />
+                            </MultiBinding>
+                        </Grid.Visibility>
+
+                        <Border Grid.Row="0" BorderThickness="0,1" Margin="0,0,0,8">
+                            <Border.BorderBrush>
+                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                    <GradientStop Color="#FFB0BEC5" Offset="0"/>
+                                    <GradientStop Color="#05B0BEC5" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.BorderBrush>
+                            <Border.Visibility>
+                                <MultiBinding Converter="{StaticResource StringNullOrEmptyToVisibilityMultiConverter}">
+                                    <Binding ElementName="ACText" Path="Text" />
+                                    <Binding ElementName="ACTouchText" Path="Text" />
+                                    <Binding ElementName="ACFlatFootedText" Path="Text" />
+                                    <Binding ElementName="HPText" Path="Text" />
+                                    <Binding ElementName="HDText" Path="Text" />
+                                    <Binding ElementName="FortText" Path="Text" />
+                                    <Binding ElementName="RefText" Path="Text" />
+                                    <Binding ElementName="WillText" Path="Text" />
+                                </MultiBinding>
+                            </Border.Visibility>
+                            <TextBlock Text="DEFENSE" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="8,5,0,5" FontSize="14" />
+                        </Border>
+
+                        <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="8" Grid.Row="1" Margin="8">
+                            <st:StackPanel.Visibility>
+                                <MultiBinding Converter="{StaticResource StringNullOrEmptyToVisibilityMultiConverter}">
+                                    <Binding ElementName="ACText" Path="Text" />
+                                    <Binding ElementName="ACTouchText" Path="Text" />
+                                    <Binding ElementName="ACFlatFootedText" Path="Text" />
+                                </MultiBinding>
+                            </st:StackPanel.Visibility>
+                            <TextBlock Text="AC" Visibility="{Binding ElementName=ACText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                            <TextBlock Name="ACText" Text="{Binding AC}" TextWrapping="Wrap" Visibility="{Binding ElementName=ACText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                            <TextBlock Text="Touch AC" Visibility="{Binding ElementName=ACTouchText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                            <TextBlock Name="ACTouchText" Text="{Binding ACTouch}" TextWrapping="Wrap" Visibility="{Binding ElementName=ACTouchText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                            <TextBlock Text="Flat-footed AC" Visibility="{Binding ElementName=ACFlatFootedText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                            <TextBlock Name="ACFlatFootedText" Text="{Binding ACFlatFooted}" TextWrapping="Wrap" Visibility="{Binding ElementName=ACFlatFootedText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" st:StackPanel.Fill="Auto" />
+                        </st:StackPanel>
+
+                        <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="8" Grid.Row="2" Margin="8">
+                            <st:StackPanel.Visibility>
+                                <MultiBinding Converter="{StaticResource StringNullOrEmptyToVisibilityMultiConverter}">
+                                    <Binding ElementName="HPText" Path="Text" />
+                                    <Binding ElementName="HDText" Path="Text" />
+                                </MultiBinding>
+                            </st:StackPanel.Visibility>
+
+                            <TextBlock Text="HP" Visibility="{Binding ElementName=HPText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                            <TextBlock Name="HPText" Text="{Binding HP}" TextWrapping="Wrap" Visibility="{Binding ElementName=HPText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                            <TextBlock Text="(" Visibility="{Binding ElementName=HDText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" Margin="0,0,-8,0" />
+                            <TextBlock Name="HDText" Text="{Binding HD}" TextWrapping="Wrap" Visibility="{Binding ElementName=HDText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                            <TextBlock Text=")" Visibility="{Binding ElementName=HDText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" Margin="-8,0,0,0" />
+                        </st:StackPanel>
+
+                        <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="8" Grid.Row="3" Margin="8">
+                            <st:StackPanel.Visibility>
+                                <MultiBinding Converter="{StaticResource StringNullOrEmptyToVisibilityMultiConverter}">
+                                    <Binding ElementName="FortText" Path="Text" />
+                                    <Binding ElementName="RefText" Path="Text" />
+                                    <Binding ElementName="WillText" Path="Text" />
+                                </MultiBinding>
+                            </st:StackPanel.Visibility>
+
+                            <TextBlock Text="Fort" Visibility="{Binding ElementName=FortText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                            <TextBlock Name="FortText" Text="{Binding Fort}" TextWrapping="Wrap" Visibility="{Binding ElementName=FortText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                            <TextBlock Text="Ref" Visibility="{Binding ElementName=RefText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                            <TextBlock Name="RefText" Text="{Binding Ref}" TextWrapping="Wrap" Visibility="{Binding ElementName=RefText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                            <TextBlock Text="Will" Visibility="{Binding ElementName=WillText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                            <TextBlock Name="WillText" Text="{Binding Will}" TextWrapping="Wrap" Visibility="{Binding ElementName=WillText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" st:StackPanel.Fill="Auto" />
+                        </st:StackPanel>
+
+                        <Border Grid.Row="4" BorderThickness="0,1" Margin="0,0,0,8">
+                            <Border.BorderBrush>
+                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                    <GradientStop Color="#FFB0BEC5" Offset="0"/>
+                                    <GradientStop Color="#05B0BEC5" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.BorderBrush>
+                            <Border.Visibility>
+                                <MultiBinding Converter="{StaticResource StringNullOrEmptyToVisibilityMultiConverter}">
+                                    <Binding ElementName="SpeedText" Path="Text" />
+                                    <Binding ElementName="MeleeText" Path="Text" />
+                                    <Binding ElementName="RangedText" Path="Text" />
+                                    <Binding ElementName="ReachText" Path="Text" />
+                                </MultiBinding>
+                            </Border.Visibility>
+                            <TextBlock Text="OFFENSE" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="8,5,0,5" FontSize="14" />
+                        </Border>
+
+                        <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="8" Grid.Row="5" Margin="8" Visibility="{Binding ElementName=SpeedText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}">
+                            <TextBlock Text="Speed " Visibility="{Binding ElementName=SpeedText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                            <TextBlock  Name="SpeedText" Text="{Binding Speed}" TextWrapping="Wrap" st:StackPanel.Fill="Auto" />
+                        </st:StackPanel>
+
+                        <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="8" Grid.Row="6" Margin="8" Visibility="{Binding ElementName=SpeedText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}">
+                            <TextBlock Text="Melee" />
+                            <TextBlock  Name="MeleeText" Text="{Binding Melee}" TextWrapping="Wrap" st:StackPanel.Fill="Auto" />
+                        </st:StackPanel>
+
+                        <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="8" Grid.Row="7" Margin="8" Visibility="{Binding ElementName=RangedText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}">
+                            <TextBlock Text="Ranged" />
+                            <TextBlock  Name="RangedText" Text="{Binding Ranged}" TextWrapping="Wrap" st:StackPanel.Fill="Auto" />
+                        </st:StackPanel>
+
+                        <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="8" Grid.Row="8" Margin="8" Visibility="{Binding ElementName=ReachText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}">
+                            <TextBlock Text="Reach" />
+                            <TextBlock  Name="ReachText" Text="{Binding Reach}" TextWrapping="Wrap" st:StackPanel.Fill="Auto" />
+                        </st:StackPanel>
+
+                        <Border Grid.Row="9" BorderThickness="0,1" Margin="0,0,0,8">
+                            <Border.BorderBrush>
+                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                    <GradientStop Color="#FFB0BEC5" Offset="0"/>
+                                    <GradientStop Color="#05B0BEC5" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.BorderBrush>
+                            <Border.Visibility>
+                                <MultiBinding Converter="{StaticResource StringNullOrEmptyToVisibilityMultiConverter}">
+                                    <Binding ElementName="StrText" Path="Text" />
+                                    <Binding ElementName="DexText" Path="Text" />
+                                    <Binding ElementName="ConText" Path="Text" />
+                                    <Binding ElementName="IntText" Path="Text" />
+                                    <Binding ElementName="WisText" Path="Text" />
+                                    <Binding ElementName="ChaText" Path="Text" />
+                                    <Binding ElementName="FeatsText" Path="Text" />
+                                    <Binding ElementName="SkillsText" Path="Text" />
+                                    <Binding ElementName="RacialModsText" Path="Text" />
+                                    <Binding ElementName="LanguagesText" Path="Text" />
+                                    <Binding ElementName="SQText" Path="Text" />
+                                </MultiBinding>
+                            </Border.Visibility>
+                            <TextBlock Text="STATISTICS" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="8,5,0,5" FontSize="14" />
+                        </Border>
+
+                        <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="8" Grid.Row="10" Margin="8">
+                            <st:StackPanel.Visibility>
+                                <MultiBinding Converter="{StaticResource StringNullOrEmptyToVisibilityMultiConverter}">
+                                    <Binding ElementName="StrText" Path="Text" />
+                                    <Binding ElementName="DexText" Path="Text" />
+                                    <Binding ElementName="ConText" Path="Text" />
+                                    <Binding ElementName="IntText" Path="Text" />
+                                    <Binding ElementName="WisText" Path="Text" />
+                                    <Binding ElementName="ChaText" Path="Text" />
+                                </MultiBinding>
+                            </st:StackPanel.Visibility>
+
+                            <TextBlock Text="Str" Visibility="{Binding ElementName=StrText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                            <TextBlock Name="StrText" Text="{Binding Str}" TextWrapping="Wrap" Visibility="{Binding ElementName=StrText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                            <TextBlock Text="Dex" Visibility="{Binding ElementName=DexText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                            <TextBlock Name="DexText" Text="{Binding Dex}" TextWrapping="Wrap" Visibility="{Binding ElementName=DexText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                            <TextBlock Text="Con" Visibility="{Binding ElementName=ConText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                            <TextBlock Name="ConText" Text="{Binding Con}" TextWrapping="Wrap" Visibility="{Binding ElementName=ConText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                            <TextBlock Text="Int" Visibility="{Binding ElementName=IntText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                            <TextBlock Name="IntText" Text="{Binding Con}" TextWrapping="Wrap" Visibility="{Binding ElementName=IntText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                            <TextBlock Text="Wis" Visibility="{Binding ElementName=WisText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                            <TextBlock Name="WisText" Text="{Binding Con}" TextWrapping="Wrap" Visibility="{Binding ElementName=WisText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                            <TextBlock Text="Cha" Visibility="{Binding ElementName=ChaText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                            <TextBlock Name="ChaText" Text="{Binding Con}" TextWrapping="Wrap" Visibility="{Binding ElementName=ChaText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" st:StackPanel.Fill="Auto" />
+                        </st:StackPanel>
+
+                        <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="8" Grid.Row="11" Margin="8" Visibility="{Binding ElementName=FeatsText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}">
+                            <TextBlock Text="Feats " />
+                            <TextBlock  Name="FeatsText" Text="{Binding Feats}" TextWrapping="Wrap" st:StackPanel.Fill="Auto" />
+                        </st:StackPanel>
+
+                        <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="8" Grid.Row="12" Margin="8" Visibility="{Binding ElementName=SkillsText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}">
+                            <TextBlock Text="Skills" />
+                            <TextBlock  Name="SkillsText" Text="{Binding Skills}" TextWrapping="Wrap" st:StackPanel.Fill="Auto" />
+                        </st:StackPanel>
+
+                        <st:StackPanel Orientation="Horizontal" Grid.Row="13" MarginBetweenChildren="8" Margin="8" Visibility="{Binding ElementName=RacialModsText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}">
+                            <TextBlock Text="Racial Modifiers" />
+                            <TextBlock  Name="RacialModsText" Text="{Binding RacialMods}" TextWrapping="Wrap" st:StackPanel.Fill="Auto" />
+                        </st:StackPanel>
+
+                        <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="8" Grid.Row="14" Margin="8" Visibility="{Binding ElementName=LanguagesText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}">
+                            <TextBlock Text="Languages" />
+                            <TextBlock  Name="LanguagesText" Text="{Binding Languages}" TextWrapping="Wrap" st:StackPanel.Fill="Auto" />
+                        </st:StackPanel>
+
+                        <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="8" Grid.Row="15" Margin="8" Visibility="{Binding ElementName=SQText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" HorizontalAlignment="Left">
+                            <TextBlock Text="SQ" />
+                            <TextBlock  Name="SQText" Text="{Binding SQ}" TextWrapping="Wrap" st:StackPanel.Fill="Auto" />
+                        </st:StackPanel>
+                    </Grid>
+
+                    <st:AutoGrid Orientation="Vertical" Rows="Auto, Auto, Auto, Auto, Auto, Auto, *" Grid.Row="2" Margin="8">
+                        <Border BorderThickness="0,1" Margin="0,0,0,8">
+                            <Border.BorderBrush>
+                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                    <GradientStop Color="#FFB0BEC5" Offset="0"/>
+                                    <GradientStop Color="#05B0BEC5" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.BorderBrush>
+                            <Border.Visibility>
+                                <MultiBinding Converter="{StaticResource StringNullOrEmptyToVisibilityMultiConverter}">
+                                    <Binding ElementName="EnvironmentText" Path="Text" />
+                                    <Binding ElementName="OrganizationText" Path="Text" />
+                                    <Binding ElementName="GroupText" Path="Text" />
+                                    <Binding ElementName="TreasureText" Path="Text" />
+                                    <Binding ElementName="GearText" Path="Text" />
+                                    <Binding ElementName="OtherGearText" Path="Text" />
+                                </MultiBinding>
+                            </Border.Visibility>
+                            <TextBlock Text="DESCRIPTION" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="8,5,0,5" FontSize="14" />
+                        </Border>
+
+                        <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="8" Margin="8" Visibility="{Binding ElementName=EnvironmentText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" HorizontalAlignment="Left">
+                            <TextBlock Text="Environment" />
+                            <TextBlock  Name="EnvironmentText" Text="{Binding Environment}" TextWrapping="Wrap" st:StackPanel.Fill="Auto" />
+                        </st:StackPanel>
+
+                        <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="8" Margin="8" Visibility="{Binding ElementName=OrganizationText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" HorizontalAlignment="Left">
+                            <TextBlock Text="Organization" />
+                            <TextBlock  Name="OrganizationText" Text="{Binding Organization}" TextWrapping="Wrap" st:StackPanel.Fill="Auto" />
+                        </st:StackPanel>
+
+                        <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="8" Margin="8" Visibility="{Binding ElementName=GroupText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" HorizontalAlignment="Left">
+                            <TextBlock Text="Group" />
+                            <TextBlock  Name="GroupText" Text="{Binding Group}" TextWrapping="Wrap" st:StackPanel.Fill="Auto" />
+                        </st:StackPanel>
+
+                        <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="8" Margin="8" Visibility="{Binding ElementName=TreasureText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" HorizontalAlignment="Left">
+                            <TextBlock Text="Treasure" />
+                            <TextBlock  Name="TreasureText" Text="{Binding Treasure}" TextWrapping="Wrap" st:StackPanel.Fill="Auto" />
+                        </st:StackPanel>
+
+                        <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="8" Margin="8" Visibility="{Binding ElementName=GearText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" HorizontalAlignment="Left">
+                            <TextBlock Text="Gear" />
+                            <TextBlock  Name="GearText" Text="{Binding Gear}" TextWrapping="Wrap" st:StackPanel.Fill="Auto" />
+                        </st:StackPanel>
+
+                        <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="8" Margin="8" Visibility="{Binding ElementName=OtherGearText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" HorizontalAlignment="Left">
+                            <TextBlock Text="Other Gear" />
+                            <TextBlock  Name="OtherGearText" Text="{Binding OtherGear}" TextWrapping="Wrap" st:StackPanel.Fill="Auto" />
+                        </st:StackPanel>
+                    </st:AutoGrid>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+
+        <Grid Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Button Grid.Row="0" Style="{DynamicResource MaterialDesignFloatingActionButton}" cal:Message.Attach="[Event Click] = [Action AddBestiary()]" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,8" Background="#FF608B60" BorderBrush="#FF608B60" ToolTip="Create New Beast">
+                <MD:PackIcon Kind="PlusCircleOutline" />
+            </Button>
+
+            <Button Grid.Row="1" Style="{DynamicResource MaterialDesignFloatingActionButton}" cal:Message.Attach="[Event Click] = [Action DeleteBestiary()]" Width="30" Height="30" Background="#FFBB6565" BorderBrush="#FFBB6565" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,8" ToolTip="Delete Selected Beast" IsEnabled="{Binding IsBestiarySelected}">
+                <MD:PackIcon Kind="Delete" />
+            </Button>
+
+            <Button Grid.Row="2" Style="{DynamicResource MaterialDesignFloatingActionButton}" cal:Message.Attach="[Event Click] = [Action BrowseFileAsync()]" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,8" ToolTip="Import Bestiary Excel Spreadsheet">
+                <MD:PackIcon Kind="Import" />
+            </Button>
+        </Grid>
+
+        <Border Grid.Column="2"  BorderThickness="3,0,0,0">
+            <Border.BorderBrush>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFB0BEC5" Offset="0"/>
+                    <GradientStop Color="#00B0BEC5" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Grid Margin="8,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <MD:ColorZone Grid.Row="0" Mode="PrimaryDark" CornerRadius="2" MD:ShadowAssist.ShadowDepth="Depth2" Margin="0,0,0,8">
+                    <Border CornerRadius="3" ToolTip="Enter to search, ignore case" Margin="0,0,0,8">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,8,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <RadioButton Grid.Column="0" IsChecked="{Binding IsNameSearch}" Style="{StaticResource MaterialDesignRadioButton}" Content="Search by Name" Margin="0,0,8,0" Padding="4,0,0,0" Foreground="#4CFFFFFF" FontSize="11" GroupName="BeastSearch" />
+                                <RadioButton Grid.Column="1" IsChecked="{Binding IsCRSearch}" Style="{StaticResource MaterialDesignRadioButton}" Content="Search by CR" Margin="0,0,8,0" Padding="4,0,0,0" Foreground="#4CFFFFFF" FontSize="11" GroupName="BeastSearch" />
+                                <RadioButton Grid.Column="2" IsChecked="{Binding IsTypeSearch}" Style="{StaticResource MaterialDesignRadioButton}" Content="Search by Type" Margin="0,0,8,0" Padding="4,0,0,0" Foreground="#4CFFFFFF" FontSize="11" GroupName="BeastSearch" />
+                            </Grid>
+
+                            <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Height="1" Margin="8">
+                                <Grid.Background>
+                                    <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                        <GradientStop Color="#FFB0BEC5" Offset="0"/>
+                                        <GradientStop Color="#05B0BEC5" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Grid.Background>
+                            </Grid>
+
+                            <Button Style="{DynamicResource MaterialDesignToolButton}" cal:Message.Attach="[Event Click] = [Action Search(SearchBox.Text)]"
+                                x:Name="SearchButton" Height="24" Width="24" Foreground="#FFEEEEEE" Grid.Column="0" Grid.Row="2">
+                                <MD:PackIcon Kind="Magnify" Opacity=".56" />
+                            </Button>
+                            <TextBox Grid.Column="1" Grid.Row="2" Margin="5 0 0 0" cal:Message.Attach="[Event KeyDown] = [Action Search_OnKeyDown(SearchBox.Text, $eventArgs)]"
+                             MD:HintAssist.Hint="Search Bestiary" x:Name="SearchBox"
+                             MD:TextFieldAssist.DecorationVisibility="Hidden" BorderThickness="0"
+                             MinWidth="200" VerticalAlignment="Center" />
+                        </Grid>
+                    </Border>
+                </MD:ColorZone>
+                <ListBox ItemsSource="{Binding BestiaryCollection}" SelectedValue="{Binding BeastID}" SelectedIndex="{Binding SelectedIndex}" Grid.Row="1" SelectedValuePath="BeastID" BorderThickness="3,0,0,0" Width="400" cal:Message.Attach="[Event SelectionChanged] = [Action BestiarySelectionChanged($source)]">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel Cursor="Hand" />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}">
+                                <TextBlock.ToolTip>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="CR Level: " />
+                                        <TextBlock Text="{Binding CR}" />
+                                    </StackPanel>
+                                </TextBlock.ToolTip>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

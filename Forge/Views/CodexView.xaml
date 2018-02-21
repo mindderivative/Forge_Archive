@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="Forge.Views.CodexView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Forge.Views"
+             xmlns:MD="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:FC="clr-namespace:Forge.Classes"
+             xmlns:st="http://schemas.spicytaco.io/"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <MD:TransitioningContent OpeningEffect="{MD:TransitionEffect FadeIn}">
+            <ContentControl x:Name="ActiveItem" />
+        </MD:TransitioningContent>
+
+        <MD:ColorZone Mode="PrimaryLight" Grid.Row="1" Margin="0 8 0 0" CornerRadius="2" MD:ShadowAssist.ShadowDepth="Depth2" HorizontalContentAlignment="Center">
+            <st:StackPanel Orientation="Horizontal" Margin="8" MarginBetweenChildren="8">
+                <Button ToolTip="Spells" Cursor="Hand" cal:Message.Attach="[Event Click] = [Action MenuControl(0)]">
+                    <FC:ForgePackIcon Kind="spell_book"/>
+                </Button>
+                <Button ToolTip="Bestiary" Cursor="Hand" cal:Message.Attach="[Event Click] = [Action MenuControl(1)]">
+                    <FC:ForgePackIcon Kind="evil_fork"/>
+                </Button>
+                <Button ToolTip="Feats" Cursor="Hand" cal:Message.Attach="[Event Click] = [Action MenuControl(2)]">
+                    <FC:ForgePackIcon Kind="running_ninja"/>
+                </Button>
+                <Button ToolTip="Skills" Cursor="Hand" cal:Message.Attach="[Event Click] = [Action MenuControl(3)]">
+                    <FC:ForgePackIcon Kind="acrobatic"/>
+                </Button>
+                <Button ToolTip="Non-Player Characters (NPCs)" Cursor="Hand" cal:Message.Attach="[Event Click] = [Action MenuControl(4)]">
+                    <FC:ForgePackIcon Kind="duality_mask"/>
+                </Button>
+                <Button ToolTip="Languages" Cursor="Hand" cal:Message.Attach="[Event Click] = [Action MenuControl(5)]">
+                    <FC:ForgePackIcon Kind="sonic_shout"/>
+                </Button>
+                <Button ToolTip="Factions" Cursor="Hand" cal:Message.Attach="[Event Click] = [Action MenuControl(6)]">
+                    <FC:ForgePackIcon Kind="flying_flag"/>
+                </Button>
+                <Button ToolTip="Random Name Generator" Cursor="Hand" cal:Message.Attach="[Event Click] = [Action MenuControl(7)]">
+                    <FC:ForgePackIcon Kind="stabbed_note"/>
+                </Button>
+            </st:StackPanel>
+        </MD:ColorZone>
+    </Grid>
+</UserControl>

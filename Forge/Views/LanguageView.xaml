@@ -1,0 +1,104 @@
+﻿<UserControl x:Class="Forge.Views.LanguageView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Forge.Views"
+             xmlns:MD="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:FC="clr-namespace:Forge.Classes"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" Visibility="{Binding IsLanguageSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="3" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="{Binding LanguageName}" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="24" Margin="8,0,0,8" FontWeight="Bold" />
+
+            <Grid Grid.Row="1" >
+                <Grid.Background>
+                    <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                        <GradientStop Color="#FFB0BEC5" Offset="0"/>
+                        <GradientStop Color="#05B0BEC5" Offset="1"/>
+                    </LinearGradientBrush>
+                </Grid.Background>
+            </Grid>
+
+            <ScrollViewer Grid.Row="2" Margin="8,16,8,8" VerticalScrollBarVisibility="Auto">
+                <TextBlock Text="{Binding LanguageDescription}" ScrollViewer.VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Margin="0,0,5,0" />
+            </ScrollViewer>
+
+
+        </Grid>
+
+        <Grid Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Button Grid.Row="0" Style="{DynamicResource MaterialDesignFloatingActionButton}" cal:Message.Attach="[Event Click] = [Action AddLanguage()]" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,8" Background="#FF608B60" BorderBrush="#FF608B60" ToolTip="Create New Language">
+                <MD:PackIcon Kind="PlusCircleOutline" />
+            </Button>
+
+            <Button Grid.Row="1" Style="{DynamicResource MaterialDesignFloatingActionButton}" cal:Message.Attach="[Event Click] = [Action DeleteLanguage()]" Width="30" Height="30" Background="#FFBB6565" BorderBrush="#FFBB6565" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,8" ToolTip="Delete Selected Language" IsEnabled="{Binding IsLanguageSelected}">
+                <MD:PackIcon Kind="Delete" />
+            </Button>
+        </Grid>
+
+        <Border Grid.Column="2"  BorderThickness="3,0,0,0">
+            <Border.BorderBrush>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFB0BEC5" Offset="0"/>
+                    <GradientStop Color="#00B0BEC5" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Grid Margin="8,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <MD:ColorZone Grid.Row="0" Mode="PrimaryDark" CornerRadius="2" MD:ShadowAssist.ShadowDepth="Depth2" Margin="0,0,0,8">
+                    <Border MaxHeight="30" CornerRadius="3" ToolTip="Enter to search, ignore case">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Button Style="{DynamicResource MaterialDesignToolButton}" cal:Message.Attach="[Event Click] = [Action Search(SearchBox.Text)]"
+                                x:Name="SearchButton" Height="24" Width="24" Foreground="#FFEEEEEE">
+                                <MD:PackIcon Kind="Magnify" Opacity=".56" />
+                            </Button>
+                            <TextBox Grid.Column="1" Margin="5 0 0 0" cal:Message.Attach="[Event KeyDown] = [Action Search_OnKeyDown(SearchBox.Text, $eventArgs)]"
+                             MD:HintAssist.Hint="Search Language" x:Name="SearchBox"
+                             MD:TextFieldAssist.DecorationVisibility="Hidden" BorderThickness="0"
+                             MinWidth="200" VerticalAlignment="Center" />
+                        </Grid>
+                    </Border>
+                </MD:ColorZone>
+                <ListBox ItemsSource="{Binding LanguageCollection}" SelectedValue="{Binding ID}" SelectedIndex="{Binding SelectedIndex}" Grid.Row="1" SelectedValuePath="ID" BorderThickness="3,0,0,0" Width="400" cal:Message.Attach="[Event SelectionChanged] = [Action LanguageSelectionChanged($source)]">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel Cursor="Hand" />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" ToolTip="{Binding Description}" />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

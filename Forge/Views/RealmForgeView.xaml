@@ -1,0 +1,531 @@
+﻿<UserControl x:Class="Forge.Views.RealmForgeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Forge.Views"
+             xmlns:vm="clr-namespace:Forge.ViewModels"
+             xmlns:MD="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:FC="clr-namespace:Forge.Classes"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}"
+             xmlns:st="http://schemas.spicytaco.io/"
+             x:Name="RealmForge">
+    <Grid Margin="-16,0,-16,-16" ClipToBounds="True" >
+        <Grid.Background>
+            <DrawingBrush Viewport="0,0,20,20" ViewportUnits="Absolute" Stretch="None" TileMode="Tile">
+                <DrawingBrush.Drawing>
+                    <DrawingGroup>
+                        <GeometryDrawing Brush="#26000000">
+                            <GeometryDrawing.Geometry>
+                                <GeometryGroup>
+                                    <RectangleGeometry Rect="0,0,10,10"/>
+                                    <RectangleGeometry Rect="10,10,10,10"/>
+                                </GeometryGroup>
+                            </GeometryDrawing.Geometry>
+                        </GeometryDrawing>
+                        <GeometryDrawing Brush="#19000000">
+                            <GeometryDrawing.Geometry>
+                                <GeometryGroup>
+                                    <RectangleGeometry Rect="10,0,10,10"/>
+                                    <RectangleGeometry Rect="0,10,10,10"/>
+                                </GeometryGroup>
+                            </GeometryDrawing.Geometry>
+                        </GeometryDrawing>
+                    </DrawingGroup>
+                </DrawingBrush.Drawing>
+            </DrawingBrush>
+        </Grid.Background>
+        <MD:Card HorizontalAlignment="Right" VerticalAlignment="Center" Panel.ZIndex="100" Margin="0,0,16,0" Background="#7F424242">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <Button Style="{DynamicResource MaterialDesignFloatingActionMiniButton}" Grid.Row="0" Margin="8" Cursor="Hand" ToolTip="World Map" cal:Message.Attach="[Event Click] = [Action OpenBaseMap()]">
+                    <MD:PackIcon Kind="Earth" Width="20" Height="20" />
+                </Button>
+                <Button Style="{DynamicResource MaterialDesignFloatingActionMiniButton}" Grid.Row="1" Margin="8" Cursor="Hand" ToolTip="Previous Map" cal:Message.Attach="[Event Click] = [Action OpenPreviousMap()]">
+                    <MD:PackIcon Kind="Undo" Width="20" Height="20" />
+                </Button>
+                <Separator Grid.Row="2" Margin="5,8" Background="{DynamicResource PrimaryHueMidBrush}" />
+                <RadioButton Style="{DynamicResource MaterialDesignFlatPrimaryToggleButton}" Grid.Row="3" Margin="8" Cursor="Hand" ToolTip="Pan" GroupName="ManipulationSelection" IsChecked="{Binding IsSelectorChecked}" Background="{DynamicResource PrimaryHueMidBrush}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}">
+                    <MD:PackIcon Kind="CursorMove" />
+                </RadioButton>
+                <RadioButton x:Name="MapSelector" Style="{DynamicResource MaterialDesignFlatPrimaryToggleButton}" Grid.Row="4" Margin="8" Cursor="Hand" ToolTip="Select" GroupName="ManipulationSelection" Background="{DynamicResource PrimaryHueMidBrush}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}">
+                    <MD:PackIcon Kind="CursorDefault" />
+                </RadioButton>
+                <Separator Grid.Row="5" Margin="5,8" Background="{DynamicResource PrimaryHueMidBrush}" />
+                <RadioButton x:Name="BaseLayerSelection" Style="{DynamicResource MaterialDesignFlatPrimaryToggleButton}" Grid.Row="6" Margin="8" Cursor="Hand" ToolTip="Base Map Layer" GroupName="LayerSelection" IsChecked="True" Background="{DynamicResource PrimaryHueMidBrush}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" cal:Message.Attach="[Event Checked] = [Action LayerSelection(0)]">
+                    <MD:PackIcon Kind="Numeric0BoxMultipleOutline" />
+                </RadioButton>
+                <RadioButton x:Name="PointLayerSelection" Style="{DynamicResource MaterialDesignFlatPrimaryToggleButton}" Grid.Row="7" Margin="8" Cursor="Hand" ToolTip="Point Layer" GroupName="LayerSelection" Background="{DynamicResource PrimaryHueMidBrush}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" cal:Message.Attach="[Event Checked] = [Action LayerSelection(1)]">
+                    <MD:PackIcon Kind="Numeric1BoxMultipleOutline" />
+                </RadioButton>
+                <RadioButton x:Name="RegionLayerSelection" Style="{DynamicResource MaterialDesignFlatPrimaryToggleButton}" Grid.Row="8" Margin="8" Cursor="Hand" ToolTip="Region Layer" GroupName="LayerSelection" Background="{DynamicResource PrimaryHueMidBrush}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" cal:Message.Attach="[Event Checked] = [Action LayerSelection(2)]">
+                    <MD:PackIcon Kind="Numeric2BoxMultipleOutline" />
+                </RadioButton>
+                <RadioButton x:Name="RelationLayerSelection" Style="{DynamicResource MaterialDesignFlatPrimaryToggleButton}" Grid.Row="9" Margin="9" Cursor="Hand" ToolTip="Relation Layer" GroupName="LayerSelection" Background="{DynamicResource PrimaryHueMidBrush}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" cal:Message.Attach="[Event Checked] = [Action LayerSelection(3)]">
+                    <MD:PackIcon Kind="Numeric3BoxMultipleOutline" />
+                </RadioButton>
+            </Grid>
+        </MD:Card>
+
+        <Grid Panel.ZIndex="100" VerticalAlignment="Top">
+            <ScrollViewer VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto" >
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="100,10,100,10">
+                    <Button Grid.Row="0" Style="{DynamicResource MaterialDesignFloatingActionMiniButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="#FF608B60" BorderBrush="#FF608B60" ToolTip="Add Player" cal:Message.Attach="[Event Click] = [Action AddPlayer()]">
+                        <MD:PackIcon Kind="PlusCircleOutline" Width="24" Height="24" />
+                    </Button>
+
+                    <ItemsControl ItemsSource="{Binding PlayerCollection}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button Grid.Row="0" Style="{DynamicResource MaterialDesignFloatingActionMiniButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" ToolTipService.IsEnabled="{Binding ElementName=PlayerPopupBox, Path=IsPopupOpen, Converter={StaticResource InverseBooleanConverter}}"  Margin="16,0,0,0">
+                                    <Button.ToolTip>
+                                        <st:StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding CharacterName}" />
+                                            <TextBlock Text="{Binding PlayerName, StringFormat=' ({0})'}" />
+                                        </st:StackPanel>
+                                    </Button.ToolTip>
+                                    <MD:PopupBox PopupMode="Click" StaysOpen="True" PlacementMode="BottomAndAlignLeftEdges" Name="PlayerPopupBox">
+                                        <MD:PopupBox.ToggleContent>
+                                            <MD:PackIcon Kind="Account" Width="24" Height="24" />
+                                        </MD:PopupBox.ToggleContent>
+                                        <Grid Margin="16" x:Name="PlayerInfo" Tag="{Binding PlayerID}">
+                                            <Button x:Name="btnPlayerSettings" Style="{DynamicResource MaterialDesignToolButton}" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" ToolTip="Change PushPin Information" DataContext="{Binding DataContext, ElementName=RealmForge}" st:StackPanel.Fill="Fill" Margin="0,-24,-16,0">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="Click">
+                                                        <cal:ActionMessage MethodName="ChangePlayer">
+                                                            <cal:Parameter Value="{Binding ElementName=PlayerInfo, Path=Tag}" />
+                                                        </cal:ActionMessage>
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                                <MD:PackIcon Kind="Settings" />
+                                            </Button>
+                                            <Grid Width="500">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Border Grid.Row="0" Grid.Column="0" BorderThickness="0,1" Margin="0,8" VerticalAlignment="Top">
+                                                    <Border.BorderBrush>
+                                                        <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                                            <GradientStop Color="#FFB0BEC5" Offset="0"/>
+                                                            <GradientStop Color="#05B0BEC5" Offset="1"/>
+                                                        </LinearGradientBrush>
+                                                    </Border.BorderBrush>
+                                                    <TextBlock Text="INFORMATION" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="8,5,0,5" FontSize="14" />
+                                                </Border>
+
+                                                <st:StackPanel Orientation="Vertical" MarginBetweenChildren="8" Grid.Row="1" Grid.Column="0" VerticalAlignment="Top">
+                                                    <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="8" VerticalAlignment="Top">
+                                                        <TextBlock Text="Character" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontFamily="Segoe UI" FontWeight="Bold" />
+                                                        <TextBlock Text="{Binding CharacterName}" st:StackPanel.Fill="Fill" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+                                                    </st:StackPanel>
+
+                                                    <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="8" VerticalAlignment="Top">
+                                                        <TextBlock Text="Player" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontFamily="Segoe UI" FontWeight="Bold" />
+                                                        <TextBlock Text="{Binding PlayerName}" st:StackPanel.Fill="Fill" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+                                                    </st:StackPanel>
+
+                                                    <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="8" VerticalAlignment="Top">
+                                                        <TextBlock Text="Alignment" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontFamily="Segoe UI" FontWeight="Bold" />
+                                                        <TextBlock Text="{Binding Alignment}" st:StackPanel.Fill="Fill" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+                                                    </st:StackPanel>
+                                                </st:StackPanel>
+
+                                                <Border Grid.Row="2" Grid.Column="0" BorderThickness="0,1" Margin="0,8" VerticalAlignment="Top">
+                                                    <Border.BorderBrush>
+                                                        <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                                            <GradientStop Color="#FFB0BEC5" Offset="0"/>
+                                                            <GradientStop Color="#05B0BEC5" Offset="1"/>
+                                                        </LinearGradientBrush>
+                                                    </Border.BorderBrush>
+                                                    <TextBlock Text="DEFENSE" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="8,5,0,5" FontSize="14" />
+                                                </Border>
+
+                                                <st:StackPanel Orientation="Vertical" MarginBetweenChildren="8" Grid.Row="3" Grid.Column="0" VerticalAlignment="Top">
+                                                    <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="8" VerticalAlignment="Top">
+                                                        <TextBlock Text="Hit Points" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontFamily="Segoe UI" FontWeight="Bold" />
+                                                        <TextBlock Text="{Binding HitPoints}" st:StackPanel.Fill="Fill" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+                                                    </st:StackPanel>
+
+                                                    <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="8" VerticalAlignment="Top">
+                                                        <TextBlock Text="AC" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontFamily="Segoe UI" FontWeight="Bold" />
+                                                        <TextBlock Text="{Binding ArmorClass}" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+                                                        <TextBlock Text="Touch AC" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontFamily="Segoe UI" FontWeight="Bold" />
+                                                        <TextBlock Text="{Binding TouchAC}" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+                                                        <TextBlock Text="Flat-footed AC" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontFamily="Segoe UI" FontWeight="Bold" />
+                                                        <TextBlock Text="{Binding FlatFootedAC}" st:StackPanel.Fill="Fill" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+                                                    </st:StackPanel>
+
+                                                    <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="8" VerticalAlignment="Top">
+                                                        <TextBlock Text="CMD" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontFamily="Segoe UI" FontWeight="Bold" />
+                                                        <TextBlock Text="{Binding CMD}" st:StackPanel.Fill="Fill" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+                                                    </st:StackPanel>
+
+                                                    <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="8" VerticalAlignment="Top">
+                                                        <TextBlock Text="Fort" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontFamily="Segoe UI" FontWeight="Bold" />
+                                                        <TextBlock Text="{Binding Fort}" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+                                                        <TextBlock Text="Ref" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontFamily="Segoe UI" FontWeight="Bold" />
+                                                        <TextBlock Text="{Binding Ref}" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+                                                        <TextBlock Text="Will" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontFamily="Segoe UI" FontWeight="Bold" />
+                                                        <TextBlock Text="{Binding Will}" st:StackPanel.Fill="Fill" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                                                    </st:StackPanel>
+                                                </st:StackPanel>
+
+                                                <Border Grid.Row="4" Grid.Column="0" BorderThickness="0,1" Margin="0,8" VerticalAlignment="Top">
+                                                    <Border.BorderBrush>
+                                                        <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                                            <GradientStop Color="#FFB0BEC5" Offset="0"/>
+                                                            <GradientStop Color="#05B0BEC5" Offset="1"/>
+                                                        </LinearGradientBrush>
+                                                    </Border.BorderBrush>
+                                                    <TextBlock Text="STATISTICS" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="8,5,0,5" FontSize="14" />
+                                                </Border>
+
+                                                <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="8" Grid.Row="5" Grid.Column="0" VerticalAlignment="Top">
+                                                    <TextBlock Text="Str" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontFamily="Segoe UI" FontWeight="Bold" />
+                                                    <TextBlock Text="{Binding Str}" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+                                                    <TextBlock Text="Dex" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontFamily="Segoe UI" FontWeight="Bold" />
+                                                    <TextBlock Text="{Binding Dex}" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+                                                    <TextBlock Text="Con" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontFamily="Segoe UI" FontWeight="Bold" />
+                                                    <TextBlock Text="{Binding Con}" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+                                                    <TextBlock Text="Int" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontFamily="Segoe UI" FontWeight="Bold" />
+                                                    <TextBlock Text="{Binding Int}" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+                                                    <TextBlock Text="Wis" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontFamily="Segoe UI" FontWeight="Bold" />
+                                                    <TextBlock Text="{Binding Wis}" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+                                                    <TextBlock Text="Cha" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontFamily="Segoe UI" FontWeight="Bold" />
+                                                    <TextBlock Text="{Binding Cha}" st:StackPanel.Fill="Fill" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+                                                </st:StackPanel>
+
+                                                <st:StackPanel Grid.Row="0" Grid.RowSpan="6" Grid.Column="1" MarginBetweenChildren="8" VerticalAlignment="Center">
+                                                    <Button Style="{DynamicResource MaterialDesignToolButton}" Width="30" Height="30" ToolTip="Player Skills" ToolTipService.IsEnabled="{Binding ElementName=PlayerSkillPopupBox, Path=IsPopupOpen, Converter={StaticResource InverseBooleanConverter}}" Margin="0,0,-16,0">
+                                                        <MD:PopupBox PopupMode="Click" StaysOpen="True" PlacementMode="RightAndAlignTopEdges" Name="PlayerSkillPopupBox" UnfurlOrientation="Horizontal" >
+                                                            <MD:PopupBox.ToggleContent>
+                                                                <MD:PackIcon Kind="Settings" Foreground="#FF616161" />
+                                                            </MD:PopupBox.ToggleContent>
+
+                                                            <Grid Width="300" Margin="8">
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition Height="Auto" />
+                                                                    <RowDefinition Height="*" />
+                                                                </Grid.RowDefinitions>
+
+                                                                <Border Grid.Row="0" BorderThickness="0,1" Margin="0,0,0,8" VerticalAlignment="Top">
+                                                                    <Border.BorderBrush>
+                                                                        <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                                                            <GradientStop Color="#FFB0BEC5" Offset="0"/>
+                                                                            <GradientStop Color="#05B0BEC5" Offset="1"/>
+                                                                        </LinearGradientBrush>
+                                                                    </Border.BorderBrush>
+                                                                    <TextBlock Text="SKILLS" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="8,5,0,5" FontSize="12" />
+                                                                </Border>
+
+                                                                <ItemsControl ItemsSource="{Binding Skills}" Grid.Row="1">
+                                                                    <ItemsControl.ItemsPanel>
+                                                                        <ItemsPanelTemplate>
+                                                                            <VirtualizingStackPanel Orientation="Vertical" />
+                                                                        </ItemsPanelTemplate>
+                                                                    </ItemsControl.ItemsPanel>
+                                                                    <ItemsControl.ItemTemplate>
+                                                                        <DataTemplate>
+                                                                            <Grid Margin="8">
+                                                                                <Grid.ColumnDefinitions>
+                                                                                    <ColumnDefinition Width="*" />
+                                                                                    <ColumnDefinition Width="Auto" />
+                                                                                </Grid.ColumnDefinitions>
+                                                                                <TextBlock Text="{Binding SkillName}" Grid.Column="0" FontSize="12" />
+                                                                                <TextBlock Text="{Binding SkillRank}" Grid.Column="1" FontSize="12" />
+                                                                            </Grid>
+                                                                        </DataTemplate>
+                                                                    </ItemsControl.ItemTemplate>
+                                                                </ItemsControl>
+                                                            </Grid>
+                                                        </MD:PopupBox>
+                                                    </Button>
+                                                    <Button Style="{DynamicResource MaterialDesignToolButton}" Width="30" Height="30" ToolTip="Player Factions" ToolTipService.IsEnabled="{Binding ElementName=PlayerFactionPopupBox, Path=IsPopupOpen, Converter={StaticResource InverseBooleanConverter}}" Margin="0,0,-16,0">
+                                                        <MD:PopupBox PopupMode="Click" StaysOpen="True" PlacementMode="RightAndAlignTopEdges" Name="PlayerFactionPopupBox" UnfurlOrientation="Horizontal" >
+                                                            <MD:PopupBox.ToggleContent>
+                                                                <MD:PackIcon Kind="Settings" Foreground="#FF616161" />
+                                                            </MD:PopupBox.ToggleContent>
+
+                                                            <Grid Width="300" Margin="8">
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition Height="Auto" />
+                                                                    <RowDefinition Height="*" />
+                                                                </Grid.RowDefinitions>
+
+                                                                <Border Grid.Row="0" BorderThickness="0,1" Margin="0,0,0,8" VerticalAlignment="Top">
+                                                                    <Border.BorderBrush>
+                                                                        <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                                                            <GradientStop Color="#FFB0BEC5" Offset="0"/>
+                                                                            <GradientStop Color="#05B0BEC5" Offset="1"/>
+                                                                        </LinearGradientBrush>
+                                                                    </Border.BorderBrush>
+                                                                    <TextBlock Text="FACTIONS" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="8,5,0,5" FontSize="12" />
+                                                                </Border>
+
+                                                                <ItemsControl ItemsSource="{Binding Factions}" Grid.Row="1">
+                                                                    <ItemsControl.ItemsPanel>
+                                                                        <ItemsPanelTemplate>
+                                                                            <VirtualizingStackPanel Orientation="Vertical" />
+                                                                        </ItemsPanelTemplate>
+                                                                    </ItemsControl.ItemsPanel>
+                                                                    <ItemsControl.ItemTemplate>
+                                                                        <DataTemplate>
+                                                                            <Grid Margin="8">
+                                                                                <Grid.ColumnDefinitions>
+                                                                                    <ColumnDefinition Width="*" />
+                                                                                    <ColumnDefinition Width="Auto" />
+                                                                                </Grid.ColumnDefinitions>
+                                                                                <TextBlock Text="{Binding FactionName}" Grid.Column="0" FontSize="12" />
+                                                                                <TextBlock Text="{Binding FactionStatus}" Grid.Column="1" FontSize="12" />
+                                                                            </Grid>
+                                                                        </DataTemplate>
+                                                                    </ItemsControl.ItemTemplate>
+                                                                </ItemsControl>
+                                                            </Grid>
+                                                        </MD:PopupBox>
+                                                    </Button>
+                                                    <Button Style="{DynamicResource MaterialDesignToolButton}" Width="30" Height="30" ToolTip="Player Languages" ToolTipService.IsEnabled="{Binding ElementName=PlayerLanguagePopupBox, Path=IsPopupOpen, Converter={StaticResource InverseBooleanConverter}}" Margin="0,0,-16,0">
+                                                        <MD:PopupBox PopupMode="Click" StaysOpen="True" PlacementMode="RightAndAlignTopEdges" Name="PlayerLanguagePopupBox" UnfurlOrientation="Horizontal" >
+                                                            <MD:PopupBox.ToggleContent>
+                                                                <MD:PackIcon Kind="Settings" Foreground="#FF616161" />
+                                                            </MD:PopupBox.ToggleContent>
+
+                                                            <Grid Width="300" Margin="8">
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition Height="Auto" />
+                                                                    <RowDefinition Height="*" />
+                                                                </Grid.RowDefinitions>
+
+                                                                <Border Grid.Row="0" BorderThickness="0,1" Margin="0,0,0,8" VerticalAlignment="Top">
+                                                                    <Border.BorderBrush>
+                                                                        <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                                                            <GradientStop Color="#FFB0BEC5" Offset="0"/>
+                                                                            <GradientStop Color="#05B0BEC5" Offset="1"/>
+                                                                        </LinearGradientBrush>
+                                                                    </Border.BorderBrush>
+                                                                    <TextBlock Text="LANGUAGES" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="8,5,0,5" FontSize="12" />
+                                                                </Border>
+
+                                                                <ItemsControl ItemsSource="{Binding Languages}" Grid.Row="1">
+                                                                    <ItemsControl.ItemsPanel>
+                                                                        <ItemsPanelTemplate>
+                                                                            <VirtualizingStackPanel Orientation="Vertical" />
+                                                                        </ItemsPanelTemplate>
+                                                                    </ItemsControl.ItemsPanel>
+                                                                    <ItemsControl.ItemTemplate>
+                                                                        <DataTemplate>
+                                                                            <Grid Margin="8">
+                                                                                <Grid.ColumnDefinitions>
+                                                                                    <ColumnDefinition Width="*" />
+                                                                                </Grid.ColumnDefinitions>
+                                                                                <TextBlock Text="{Binding LanguageName}" Grid.Column="0" FontSize="12" ToolTip="{Binding LanguageDescription}" />
+                                                                            </Grid>
+                                                                        </DataTemplate>
+                                                                    </ItemsControl.ItemTemplate>
+                                                                </ItemsControl>
+                                                            </Grid>
+                                                        </MD:PopupBox>
+                                                    </Button>
+                                                </st:StackPanel>
+                                            </Grid>
+                                        </Grid>
+                                    </MD:PopupBox>
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+
+        <Grid cal:Message.Attach="[Event PreviewMouseMove] = [Action MouseMove($source, $eventArgs)]; [Event PreviewMouseWheel] = [Action MouseWheel($source, $eventArgs)]" Panel.ZIndex="90" Cursor="{Binding SelectorCursor}" ContextMenuService.IsEnabled="{Binding ElementName=MapSelector, Path=IsChecked}"  >
+            <Grid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Add Point..." IsEnabled="{Binding PointContextEnabled}" Cursor="Hand" cal:Message.Attach="[Event Click] = [Action AddPoint()]">
+                        <MenuItem.Icon>
+                            <MD:PackIcon Kind="CheckboxBlankCircle" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Add Region..." IsEnabled="{Binding RegionContextEnabled}" Cursor="Hand">
+                        <MenuItem.Icon>
+                            <MD:PackIcon Kind="ShapeRectanglePlus" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Add Relation..." IsEnabled="{Binding RelationContextEnabled}" Cursor="Hand">
+                        <MenuItem.Icon>
+                            <MD:PackIcon Kind="AccountMultiplePlus" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Map Settings..." IsEnabled="{Binding BaseContextEnabled}" Cursor="Hand">
+                        <MenuItem.Icon>
+                            <MD:PackIcon Kind="Settings" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </ContextMenu>
+            </Grid.ContextMenu>
+            <ZoomableCanvas x:Name="BaseMapLayer" RealizationLimit="1000" RealizationRate="10" RealizationPriority="Background" cal:Message.Attach="[Event Loaded] = [Action BaseMapLayer_Loaded($source, $eventArgs)]; [Event PreviewMouseMove] = [Action CanvasMouseMove($source, $eventArgs)]; [Event PreviewMouseRightButtonDown] = [Action CanvasMouseDown($source, $eventArgs)]" Width="{Binding MapWidth}" Height="{Binding MapHeight}" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                <ZoomableCanvas.LayoutTransform>
+                    <MatrixTransform />
+                </ZoomableCanvas.LayoutTransform>
+                <ZoomableCanvas.Background>
+                    <VisualBrush Stretch="None">
+                        <VisualBrush.Visual>
+                            <Image x:Name="CanvasBGImage" Source="{Binding MapImage, UpdateSourceTrigger=PropertyChanged}"
+                                   Stretch="UniformToFill"
+                                   Width="{Binding RelativeSource={RelativeSource Self}, Path=Source.PixelWidth}"
+                                   Height="{Binding RelativeSource={RelativeSource Self}, Path=Source.PixelHeight}" />
+                        </VisualBrush.Visual>
+                    </VisualBrush>
+                </ZoomableCanvas.Background>
+
+                <ItemsControl x:Name="pntItems" ItemsSource="{Binding PushPinCollection}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas RenderTransformOrigin="0.5,0.5" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemContainerStyle>
+                        <Style TargetType="ContentPresenter">
+                            <Setter Property="Canvas.Left" Value="{Binding PushPinLeft}" />
+                            <Setter Property="Canvas.Top" Value="{Binding PushPinTop}" />
+                        </Style>
+                    </ItemsControl.ItemContainerStyle>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button ToolTip="{Binding PushPinName}" Background="{Binding PushPinColor}" BorderBrush="{Binding PushPinColor}" Style="{DynamicResource MaterialDesignFloatingActionMiniButton}" ToolTipService.IsEnabled="{Binding ElementName=PointPopupBox, Path=IsPopupOpen, Converter={StaticResource InverseBooleanConverter}}" Width="16" Height="16">
+                                <MD:PopupBox Name="PointPopupBox" StaysOpen="True" HorizontalAlignment="Center" VerticalAlignment="Center" ToggleContent="" Width="20" Height="20" ClipToBounds="False">
+                                    <Grid Width="400" Margin="8,8,8,8">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+
+                                        <MD:PopupBox Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" PlacementMode="LeftAndAlignTopEdges" StaysOpen="True">
+                                            <MD:PopupBox.ToggleContent>
+                                                <TextBlock Text="[Settings]" Foreground="White" FontSize="12" Margin="0,-8,0,0" />
+                                            </MD:PopupBox.ToggleContent>
+
+                                            <Grid Width="400" Margin="8">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                </Grid.RowDefinitions>
+                                                <st:StackPanel Orientation="Horizontal" Grid.Row="0" MarginBetweenChildren="8">
+                                                    <TextBlock Text="Settings" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" st:StackPanel.Fill="Fill" />
+
+                                                    
+
+                                                </st:StackPanel>
+                                                
+                                                <Separator Grid.Row="1" />
+                                                <TextBox Text="{Binding PushPinName}" Grid.Row="2" VerticalAlignment="Center" MD:HintAssist.Hint="Push Pin Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                                                
+                                            </Grid>
+                                        </MD:PopupBox>
+
+                                        <Grid Grid.Row="1" x:Name="PushPinGridInfo" Tag="{Binding PushPinID}">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+                                            
+                                            <Grid Grid.Row="0">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <TextBox x:Name="txtMapName" Text="{Binding PushPinName}" Grid.Column="0" VerticalAlignment="Center" MD:HintAssist.Hint="Push Pin Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" IsReadOnly="True" Tag="{Binding MapID}" />
+                                                <Grid IsEnabled="{Binding HasMap}" Grid.Column="1" Margin="8">
+                                                    <Button x:Name="btnMap" Style="{DynamicResource MaterialDesignFloatingActionMiniButton}" Width="30" Height="30" DataContext="{Binding DataContext, ElementName=RealmForge}" ToolTip="Push Pin Map">
+                                                        <i:Interaction.Triggers>
+                                                            <i:EventTrigger EventName="Click">
+                                                                <cal:ActionMessage MethodName="OpenSubMap">
+                                                                    <cal:Parameter Value="{Binding ElementName=txtMapName, Path=Tag}" />
+                                                                </cal:ActionMessage>
+                                                            </i:EventTrigger>
+                                                        </i:Interaction.Triggers>
+                                                        <MD:PackIcon Kind="Earth" />
+                                                    </Button>
+                                                </Grid>
+                                            </Grid>
+
+                                            <Grid Grid.Row="1">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <Button x:Name="btnDelete" Grid.Column="0" Style="{DynamicResource MaterialDesignFloatingActionButton}" Width="30" Height="30" Background="#FFBB6565" BorderBrush="#FFBB6565" HorizontalAlignment="Left" VerticalAlignment="Bottom" ToolTip="Delete PushPin" DataContext="{Binding DataContext, ElementName=RealmForge}">
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="Click">
+                                                            <cal:ActionMessage MethodName="DeletePoint">
+                                                                <cal:Parameter Value="{Binding ElementName=PushPinGridInfo, Path=Tag}" />
+                                                            </cal:ActionMessage>
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                    <MD:PackIcon Kind="Delete" />
+                                                </Button>
+                                                <Button x:Name="btnSettings" Grid.Column="1" Style="{DynamicResource MaterialDesignFloatingActionDarkButton}" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" ToolTip="Change PushPin Information" DataContext="{Binding DataContext, ElementName=RealmForge}">
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="Click">
+                                                            <cal:ActionMessage MethodName="ChangePoint">
+                                                                <cal:Parameter Value="{Binding ElementName=PushPinGridInfo, Path=Tag}" />
+                                                            </cal:ActionMessage>
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                    <MD:PackIcon Kind="Settings" />
+                                                </Button>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </MD:PopupBox>
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ZoomableCanvas>
+        </Grid>
+
+        <Grid Panel.ZIndex="110" ScrollViewer.VerticalScrollBarVisibility="Disabled" Visibility="{Binding NoBaseMapLoaded, Converter={StaticResource BooleanToVisibilityConverter}}" IsEnabled="{Binding NoBaseMapLoaded}">
+            <TextBlock Text="...click here to add map..." HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48" FontFamily="Sylfaen" Foreground="#7F474747" cal:Message.Attach="[Event PreviewMouseLeftButtonUp] = [Action AddMap()]" Cursor="Hand" />
+        </Grid>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="16,0,0,16" Panel.ZIndex="110">
+            <StackPanel.Effect>
+                <DropShadowEffect/>
+            </StackPanel.Effect>
+            <TextBlock Text="Mouse Position (" />
+            <TextBlock Text="X " />
+            <TextBlock Text="{Binding MousePositionX}" />
+            <TextBlock Text=" / Y " />
+            <TextBlock Text="{Binding MousePositionY}" />
+            <TextBlock Text=")" />
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,321 @@
+﻿<UserControl x:Class="Forge.Views.SpellsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Forge.Views"
+             xmlns:MD="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:FC="clr-namespace:Forge.Classes"
+             xmlns:qc="http://QuickConverter.CodePlex.com/"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" Visibility="{Binding IsSpellSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="3" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="{Binding SpellName}" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="24" Margin="8,0,0,8" FontWeight="Bold" />
+
+            <Grid Grid.Row="1" >
+                <Grid.Background>
+                    <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                        <GradientStop Color="#FFB0BEC5" Offset="0"/>
+                        <GradientStop Color="#05B0BEC5" Offset="1"/>
+                    </LinearGradientBrush>
+                </Grid.Background>
+            </Grid>
+
+            <ScrollViewer Grid.Row="2" Margin="8,16,8,8" VerticalScrollBarVisibility="Auto">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <!--Schools Level-->
+                        <RowDefinition Height="Auto" />
+                        <!--Casting-->
+                        <RowDefinition Height="Auto" />
+                        <!--Effect-->
+                        <RowDefinition Height="Auto" />
+                        <!--Description-->
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Margin="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Margin="32,0,0,8">
+                            <TextBlock Text="{Binding ShortDescription}" TextWrapping="Wrap" FontStyle="Italic" Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                        </Grid>
+                        <Grid Grid.Row="1" Margin="0,0,0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="School" Grid.Column="0" FontWeight="Bold" Margin="0,0,5,0" Visibility="{Binding ElementName=SchoolText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                            <TextBlock Name="SchoolText" Text="{Binding School}" Grid.Column="1" TextWrapping="Wrap" Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                            <TextBlock Text="Level" Grid.Column="2" FontWeight="Bold" Margin="5,0" Visibility="{Binding ElementName=LevelText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                            <TextBlock Name="LevelText" Text="{Binding Level}" Grid.Column="3" TextWrapping="Wrap" Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                        </Grid>
+
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Sub School" Grid.Column="0" FontWeight="Bold" Margin="0,0,5,0" Visibility="{Binding ElementName=SubSchoolText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                            <TextBlock Name="SubSchoolText" Text="{Binding SubSchool}" Grid.Column="1" TextWrapping="Wrap" Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                            <TextBlock Text="Domain" Grid.Column="2" FontWeight="Bold" Margin="5,0" Visibility="{Binding ElementName=DomainText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                            <TextBlock Name="DomainText" Text="{Binding Domain}" Grid.Column="3" TextWrapping="Wrap" Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                        </Grid>
+
+                    </Grid>
+
+                    <Grid Grid.Row="1" Margin="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.Visibility>
+                            <MultiBinding Converter="{StaticResource StringNullOrEmptyToVisibilityMultiConverter}">
+                                <Binding ElementName="CastingTimeText" Path="Text" />
+                                <Binding ElementName="ComponentsText" Path="Text" />
+                            </MultiBinding>
+                        </Grid.Visibility>
+                        <Border Grid.Row="0" BorderThickness="0,1" Margin="0,0,0,8">
+                            <Border.BorderBrush>
+                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                    <GradientStop Color="#FFB0BEC5" Offset="0"/>
+                                    <GradientStop Color="#05B0BEC5" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.BorderBrush>
+                            <TextBlock Text="CASTING" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="8,5,0,5" FontSize="14" />
+                        </Border>
+
+                        <Grid Grid.Row="1" Margin="0,0,0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Casting Time" Grid.Column="0" FontWeight="Bold" Margin="0,0,5,0" Visibility="{Binding ElementName=CastingTimeText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                            <TextBlock Name="CastingTimeText" Text="{Binding CastingTime}" Grid.Column="1" TextWrapping="Wrap" Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                        </Grid>
+
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Components" Grid.Column="0" FontWeight="Bold" Margin="0,0,5,0" Visibility="{Binding ElementName=ComponentsText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                            <TextBlock Name="ComponentsText" Text="{Binding Components}" Grid.Column="1" TextWrapping="Wrap" Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                        </Grid>
+
+                    </Grid>
+
+                    <Grid Grid.Row="2" Margin="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.Visibility>
+                            <MultiBinding Converter="{StaticResource StringNullOrEmptyToVisibilityMultiConverter}">
+                                <Binding ElementName="RangeText" Path="Text" />
+                                <Binding ElementName="AreaText" Path="Text" />
+                                <Binding ElementName="EffectText" Path="Text" />
+                                <Binding ElementName="TargetsText" Path="Text" />
+                                <Binding ElementName="DurationText" Path="Text" />
+                                <Binding ElementName="SavingThrowText" Path="Text" />
+                                <Binding ElementName="SpellResistanceText" Path="Text" />
+                            </MultiBinding>
+                        </Grid.Visibility>
+                        <Border Grid.Row="0" BorderThickness="0,1" Margin="0,0,0,8">
+                            <Border.BorderBrush>
+                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                    <GradientStop Color="#FFB0BEC5" Offset="0"/>
+                                    <GradientStop Color="#05B0BEC5" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.BorderBrush>
+                            <TextBlock Text="EFFECT" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="8,5,0,5" FontSize="14" />
+                        </Border>
+
+                        <Grid Grid.Row="1" Margin="0,0,0,8" Visibility="{Binding ElementName=RangeText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Range" Grid.Column="0" FontWeight="Bold" Margin="0,0,5,0" />
+                            <TextBlock Name="RangeText" Text="{Binding Range}" Grid.Column="1" TextWrapping="Wrap" Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                        </Grid>
+
+                        <Grid Grid.Row="2" Margin="0,0,0,8" Visibility="{Binding ElementName=AreaText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Area" Grid.Column="0" FontWeight="Bold" Margin="0,0,5,0" />
+                            <TextBlock Name="AreaText" Text="{Binding Area}" Grid.Column="1" TextWrapping="Wrap" Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                        </Grid>
+
+                        <Grid Grid.Row="3" Margin="0,0,0,8" Visibility="{Binding ElementName=EffectText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Effect" Grid.Column="0" FontWeight="Bold" Margin="0,0,5,0" />
+                            <TextBlock Name="EffectText" Text="{Binding Effect}" Grid.Column="1" TextWrapping="Wrap" Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                        </Grid>
+
+                        <Grid Grid.Row="4" Margin="0,0,0,8" Visibility="{Binding ElementName=TargetsText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Targets" Grid.Column="0" FontWeight="Bold" Margin="0,0,5,0" />
+                            <TextBlock Name="TargetsText" Text="{Binding Targets}" Grid.Column="1" TextWrapping="Wrap" Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                        </Grid>
+
+                        <Grid Grid.Row="5" Margin="0,0,0,8" Visibility="{Binding ElementName=DurationText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Duration" Grid.Column="0" FontWeight="Bold" Margin="0,0,5,0" />
+                            <TextBlock Name="DurationText" Text="{Binding Duration}" Grid.Column="1" TextWrapping="Wrap" Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                        </Grid>
+
+                        <Grid Grid.Row="6" Margin="0,0,0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.Visibility>
+                                <MultiBinding Converter="{StaticResource StringNullOrEmptyToVisibilityMultiConverter}">
+                                    <Binding ElementName="SavingThrowText" Path="Text" />
+                                    <Binding ElementName="SpellResistanceText" Path="Text" />
+                                </MultiBinding>
+                            </Grid.Visibility>
+                            <TextBlock Text="Saving Throw" Grid.Column="0" FontWeight="Bold" Margin="0,0,5,0" Visibility="{Binding ElementName=SavingThrowText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                            <TextBlock Name="SavingThrowText" Text="{Binding SavingThrow}" Grid.Column="1" TextWrapping="Wrap" Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                            <TextBlock Text="Spell Resistance" FontWeight="Bold" Margin="5,0" Grid.Column="2" Visibility="{Binding ElementName=SpellResistanceText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                            <TextBlock Name="SpellResistanceText" Text="{Binding SpellResistance}" Grid.Column="3" TextWrapping="Wrap" Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                        </Grid>
+
+                    </Grid>
+
+                    <Grid Grid.Row="3" Margin="8" Visibility="{Binding ElementName=DescriptionText, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Border Grid.Row="0" BorderThickness="0,1" Margin="0,0,0,8">
+                            <Border.BorderBrush>
+                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                    <GradientStop Color="#FFB0BEC5" Offset="0"/>
+                                    <GradientStop Color="#05B0BEC5" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.BorderBrush>
+                            <TextBlock Text="DESCRIPTION" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="8,5,0,5" FontSize="14" />
+                        </Border>
+
+                        <Grid Grid.Row="1" Margin="0,0,0,8">
+                            <TextBlock Name="DescriptionText" Text="{Binding Description}" TextWrapping="Wrap" Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Text, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}" />
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </ScrollViewer>
+
+
+        </Grid>
+
+        <Grid Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Button Grid.Row="0" Style="{DynamicResource MaterialDesignFloatingActionButton}" cal:Message.Attach="[Event Click] = [Action AddSpell()]" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,8" Background="#FF608B60" BorderBrush="#FF608B60" ToolTip="Create New Spell">
+                <MD:PackIcon Kind="PlusCircleOutline" />
+            </Button>
+
+            <Button Grid.Row="1" Style="{DynamicResource MaterialDesignFloatingActionButton}" cal:Message.Attach="[Event Click] = [Action DeleteSpell()]" Width="30" Height="30" Background="#FFBB6565" BorderBrush="#FFBB6565" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,8" ToolTip="Delete Selected Spell" IsEnabled="{Binding IsSpellSelected}">
+                <MD:PackIcon Kind="Delete" />
+            </Button>
+
+            <Button Grid.Row="2" Style="{DynamicResource MaterialDesignFloatingActionButton}" cal:Message.Attach="[Event Click] = [Action BrowseFileAsync()]" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,8" ToolTip="Import Spells Excel Spreadsheet">
+                <MD:PackIcon Kind="Import" />
+            </Button>
+        </Grid>
+
+        <Border Grid.Column="2"  BorderThickness="3,0,0,0">
+            <Border.BorderBrush>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFB0BEC5" Offset="0"/>
+                    <GradientStop Color="#00B0BEC5" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Grid Margin="8,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <MD:ColorZone Grid.Row="0" Mode="PrimaryDark" CornerRadius="2" MD:ShadowAssist.ShadowDepth="Depth2" Margin="0,0,0,8">
+                    <Border MaxHeight="30" CornerRadius="3" ToolTip="Enter to search, ignore case">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Button Style="{DynamicResource MaterialDesignToolButton}" cal:Message.Attach="[Event Click] = [Action Search(SearchBox.Text)]"
+                                x:Name="SearchButton" Height="24" Width="24" Foreground="#FFEEEEEE">
+                                <MD:PackIcon Kind="Magnify" Opacity=".56" />
+                            </Button>
+                            <TextBox Grid.Column="1" Margin="5 0 0 0" cal:Message.Attach="[Event KeyDown] = [Action Search_OnKeyDown(SearchBox.Text, $eventArgs)]"
+                             MD:HintAssist.Hint="Search Spells" x:Name="SearchBox"
+                             MD:TextFieldAssist.DecorationVisibility="Hidden" BorderThickness="0"
+                             MinWidth="200" VerticalAlignment="Center" />
+                        </Grid>
+                    </Border>
+                </MD:ColorZone>
+                <ListBox ItemsSource="{Binding SpellCollection}" SelectedValue="{Binding SpellID}" SelectedIndex="{Binding SelectedIndex}" Grid.Row="1" SelectedValuePath="SpellID" cal:Message.Attach="[Event SelectionChanged] = [Action SpellSelectionChanged($source)]" Width="400">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel Cursor="Hand" />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+
+                            <TextBlock Text="{Binding SpellName}" ToolTip="{Binding ShortDescription}" />
+
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </Border>
+        
+    </Grid>
+</UserControl>

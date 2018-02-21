@@ -1,0 +1,208 @@
+﻿<UserControl x:Class="Forge.Controls.AddSpellDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Forge.Controls"
+             xmlns:MD="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:FC="clr-namespace:Forge.Classes"
+             xmlns:addon="http://schemas.landmarkdevs.com/xaml"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Grid Margin="32" Width="600">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <TextBox x:Name="SpellName" MD:HintAssist.Hint="Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="18" Margin="0,16,0,0" MD:ValidationAssist.OnlyShowOnFocus="True">
+                <Binding Path="SpellNameTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+            
+        </Grid>
+
+        <Grid Grid.Row="1" Margin="0,16,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="School" Grid.Column="0" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MD:HintAssist.Hint="School" MD:ValidationAssist.OnlyShowOnFocus="True" Margin="0,0,8,0">
+                <Binding Path="SpellSchoolTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+            
+            <TextBox x:Name="SubSchool" Grid.Column="1" MD:HintAssist.Hint="SubSchool" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MD:ValidationAssist.OnlyShowOnFocus="True" Margin="8,0,0,0">
+                <Binding Path="SubSchoolTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+        </Grid>
+
+        <Grid Grid.Row="2" Margin="0,16,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="Domain" Grid.Column="0" MD:HintAssist.Hint="Domain" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MD:ValidationAssist.OnlyShowOnFocus="True" Margin="0,0,8,0">
+                <Binding Path="DomainTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+
+            <TextBox x:Name="Level" Grid.Column="1" MD:HintAssist.Hint="Level" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MD:ValidationAssist.OnlyShowOnFocus="True" Margin="8,0,0,0">
+                <Binding Path="LevelTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+        </Grid>
+
+        <Grid Grid.Row="3" Margin="0,16,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <TextBox x:Name="CastingTime" Grid.Column="0" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MD:HintAssist.Hint="Casting Time" MD:ValidationAssist.OnlyShowOnFocus="True" Margin="0,0,8,0">
+                <Binding Path="CastingTimeTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+
+            <TextBox x:Name="Components" Grid.Column="1" MD:HintAssist.Hint="Components" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MD:ValidationAssist.OnlyShowOnFocus="True" Margin="8,0,0,0">
+                <Binding Path="ComponentsTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+        </Grid>
+
+        <Grid Grid.Row="4" Margin="0,16,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <TextBox x:Name="Range" Grid.Column="0" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MD:HintAssist.Hint="Range" MD:ValidationAssist.OnlyShowOnFocus="True" Margin="0,0,8,0">
+                <Binding Path="RangeTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+
+            <TextBox x:Name="Area" Grid.Column="1" MD:HintAssist.Hint="Area" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MD:ValidationAssist.OnlyShowOnFocus="True" Margin="8,0,0,0">
+                <Binding Path="AreaTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+        </Grid>
+
+        <Grid Grid.Row="5" Margin="0,16,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <TextBox x:Name="Effect" Grid.Column="0" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MD:HintAssist.Hint="Effect" MD:ValidationAssist.OnlyShowOnFocus="True" Margin="0,0,8,0">
+                <Binding Path="EffectTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+
+            <TextBox x:Name="Targets" Grid.Column="1" MD:HintAssist.Hint="Targets" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MD:ValidationAssist.OnlyShowOnFocus="True" Margin="8,0,0,0">
+                <Binding Path="TargetsTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+        </Grid>
+
+        <Grid Grid.Row="6" Margin="0,16,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBox x:Name="Duration" Grid.Column="0" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MD:HintAssist.Hint="Duration" MD:ValidationAssist.OnlyShowOnFocus="True" Margin="0,0,8,0">
+                <Binding Path="DurationTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+
+            <TextBox x:Name="SavingThrow" Grid.Column="1" MD:HintAssist.Hint="Saving Throw" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MD:ValidationAssist.OnlyShowOnFocus="True" Margin="8,0">
+                <Binding Path="SavingThrowTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+
+            <ComboBox x:Name="SpellResistance" Grid.Column="2" Style="{StaticResource MaterialDesignFloatingHintComboBox}" MD:HintAssist.Hint="Spell Resistance" VerticalAlignment="Bottom" Cursor="Hand" Width="150" Margin="8,0,0,0">
+                <ComboBoxItem IsSelected="True">True</ComboBoxItem>
+                <ComboBoxItem>False</ComboBoxItem>
+            </ComboBox>
+        </Grid>
+
+        <Grid Grid.Row="7" Margin="0,16,0,0">
+            <TextBox x:Name="ShortDescription" Grid.Column="0" MD:HintAssist.Hint="Short Description" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0,0,8,0" Height="80" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" HorizontalScrollBarVisibility="Disabled" TextWrapping="Wrap" AcceptsTab="True" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" MD:ValidationAssist.OnlyShowOnFocus="True">
+                <Binding Path="ShortDescriptionTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+        </Grid>
+
+        <Grid Grid.Row="8" Margin="0,16,0,0">
+
+            <TextBox x:Name="SpellDescription" Grid.Column="0" MD:HintAssist.Hint="Description" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0,0,8,0" Height="125" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" HorizontalScrollBarVisibility="Disabled" TextWrapping="Wrap" AcceptsTab="True" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" MD:ValidationAssist.OnlyShowOnFocus="True">
+                <Binding Path="DescriptionTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+        </Grid>
+
+        <Grid Grid.Row="9" Margin="0,16,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Button Content="Cancel" Grid.Column="0" Click="CancelDialog" />
+            <Button Content="Accept" Grid.Column="1" Margin="16,0,0,0" Click="AcceptDialog" />
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,159 @@
+﻿<UserControl x:Class="Forge.Controls.AddPlayerDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Forge.Controls"
+             xmlns:MD="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:FC="clr-namespace:Forge.Classes"
+             xmlns:st="http://schemas.spicytaco.io/"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Grid Margin="32" Width="500">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="8" Grid.Row="0">
+            <TextBox x:Name="PlayerName" MD:HintAssist.Hint="Player Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="18" MD:ValidationAssist.OnlyShowOnFocus="True" st:StackPanel.Fill="Fill">
+                <Binding Path="PlayerNameTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+            <TextBox x:Name="CharacterName" MD:HintAssist.Hint="Character Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="18" MD:ValidationAssist.OnlyShowOnFocus="True" st:StackPanel.Fill="Fill">
+                <Binding Path="CharacterNameTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+        </st:StackPanel>
+
+        <st:StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,16,0,0"  MarginBetweenChildren="8">
+            <ComboBox x:Name="Alignment" Style="{StaticResource MaterialDesignFloatingHintComboBox}" MD:HintAssist.Hint="Alignment" VerticalAlignment="Bottom" Cursor="Hand" Width="100" Margin="8,0,0,0">
+                <ComboBoxItem IsSelected="True">LG</ComboBoxItem>
+                <ComboBoxItem>LN</ComboBoxItem>
+                <ComboBoxItem>LE</ComboBoxItem>
+                <ComboBoxItem>NG</ComboBoxItem>
+                <ComboBoxItem>N</ComboBoxItem>
+                <ComboBoxItem>NE</ComboBoxItem>
+                <ComboBoxItem>CG</ComboBoxItem>
+                <ComboBoxItem>CN</ComboBoxItem>
+                <ComboBoxItem>CE</ComboBoxItem>
+            </ComboBox>
+            <TextBox x:Name="HitPoints" MD:HintAssist.Hint="HP" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MD:ValidationAssist.OnlyShowOnFocus="True" st:StackPanel.Fill="Fill">
+                <Binding Path="HitPointsTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+            <TextBox x:Name="ArmorClass" MD:HintAssist.Hint="AC" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MD:ValidationAssist.OnlyShowOnFocus="True" st:StackPanel.Fill="Fill">
+                <Binding Path="ArmorClassTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+            <TextBox x:Name="TouchAC" MD:HintAssist.Hint="Touch" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MD:ValidationAssist.OnlyShowOnFocus="True" st:StackPanel.Fill="Fill">
+                <Binding Path="TouchACTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+            <TextBox x:Name="FlatFootedAC" MD:HintAssist.Hint="Flat-footed" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MD:ValidationAssist.OnlyShowOnFocus="True" st:StackPanel.Fill="Fill">
+                <Binding Path="FlatFootedACTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+        </st:StackPanel>
+
+        <st:StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0,16,0,0"  MarginBetweenChildren="8">
+            <TextBox x:Name="CMD" MD:HintAssist.Hint="CMD" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MD:ValidationAssist.OnlyShowOnFocus="True" st:StackPanel.Fill="Fill">
+                <Binding Path="CMDTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+            <TextBox x:Name="Fort" MD:HintAssist.Hint="Fort" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MD:ValidationAssist.OnlyShowOnFocus="True" st:StackPanel.Fill="Fill">
+                <Binding Path="FortTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+            <TextBox x:Name="Ref" MD:HintAssist.Hint="Ref" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MD:ValidationAssist.OnlyShowOnFocus="True" st:StackPanel.Fill="Fill">
+                <Binding Path="RefTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+            <TextBox x:Name="Will" MD:HintAssist.Hint="Will" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MD:ValidationAssist.OnlyShowOnFocus="True" st:StackPanel.Fill="Fill">
+                <Binding Path="WillTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+        </st:StackPanel>
+
+        <st:StackPanel Orientation="Horizontal" Grid.Row="3" Margin="0,16,0,0"  MarginBetweenChildren="8">
+            <TextBox x:Name="Str" MD:HintAssist.Hint="Str" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MD:ValidationAssist.OnlyShowOnFocus="True" st:StackPanel.Fill="Fill">
+                <Binding Path="StrTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+            <TextBox x:Name="Dex" MD:HintAssist.Hint="Dex" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MD:ValidationAssist.OnlyShowOnFocus="True" st:StackPanel.Fill="Fill">
+                <Binding Path="DexTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+            <TextBox x:Name="Con" MD:HintAssist.Hint="Con" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MD:ValidationAssist.OnlyShowOnFocus="True" st:StackPanel.Fill="Fill">
+                <Binding Path="ConTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+            <TextBox x:Name="Int" MD:HintAssist.Hint="Int" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MD:ValidationAssist.OnlyShowOnFocus="True" st:StackPanel.Fill="Fill">
+                <Binding Path="IntTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+            <TextBox x:Name="Wis" MD:HintAssist.Hint="Wis" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MD:ValidationAssist.OnlyShowOnFocus="True" st:StackPanel.Fill="Fill">
+                <Binding Path="WisTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+            <TextBox x:Name="Cha" MD:HintAssist.Hint="Cha" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MD:ValidationAssist.OnlyShowOnFocus="True" st:StackPanel.Fill="Fill">
+                <Binding Path="ChaTxt" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <FC:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+        </st:StackPanel>
+
+        <st:StackPanel Orientation="Horizontal" Grid.Row="4" Margin="0,16,0,0" MarginBetweenChildren="16">
+            <Button Content="Cancel" Click="CancelDialog" st:StackPanel.Fill="Fill" />
+            <Button Content="Accept" Click="AcceptDialog" st:StackPanel.Fill="Fill" />
+        </st:StackPanel>
+    </Grid>
+</UserControl>
